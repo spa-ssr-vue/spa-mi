@@ -1,0 +1,84 @@
+// flex
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+$flex-jc: (
+  start: flex-start,
+  center: center,
+  end: flex-end,
+  around: space-around,
+  between: space-between,
+);
+
+$flex-ai: (
+  start: flex-start,
+  center: center,
+  end: flex-end,
+  stretch: stretch,
+);
+
+@each $jc-key, $jc-value in $flex-jc {
+  .jc-#{$jc-key} {
+    justify-content: $jc-value;
+  }
+}
+
+@each $ai-key, $ai-value in $flex-ai {
+  .ai-#{$ai-key} {
+    align-items: $ai-value;
+  }
+}
+
+// display
+@each $display-var in (inline-block, block, none) {
+  .d-#{$display-var} {
+    display: $display-var;
+  }
+}
+
+// position
+@each $position-var in (relative, absolute, fixed, sticky) {
+  .p-#{$position-var} {
+    position: $position-var;
+  }
+}
+
+@each $z-index-var in (9, 10, 100, 999, 1000) {
+  .z-#{$z-index-var} {
+    z-index: $z-index-var;
+  }
+}
+
+// float
+$float: (
+  l: left,
+  r: right,
+);
+@each $float-key, $float-value in $float {
+  .f#{$float-key} {
+    float: $float-value;
+  }
+}
+
+.clearfix:after,
+.clearfix:before {
+  content: " ";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}

@@ -1,0 +1,33 @@
+@mixin sep(
+  $bg-color: #999,
+  $content: "",
+  $width: 100%,
+  $height: 1px,
+  $top: auto,
+  $right: 0,
+  $bottom: 0,
+  $left: auto,
+  $transform: rotate(0deg)
+) {
+  position: relative;
+  &::after {
+    content: $content;
+    width: $width;
+    height: $height;
+    background-color: $bg-color;
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+    transform: $transform;
+  }
+}
+
+@mixin p($type: relative, $top: auto, $right: 0, $bottom: 0, $left: auto) {
+  position: $type;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}

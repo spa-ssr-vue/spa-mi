@@ -1,0 +1,76 @@
+// text
+// text-color bg-color
+$colors: (
+  primary: #ff6700,
+  white: #fff,
+  bg: #333333,
+  gray: #f1eded,
+  gray-2: #eeeeee,
+  gray-3: #b0b0b0,
+  gray-5: #5f5750,
+  gray-6: #605751,
+  gray-7: #757575,
+  dark-2: #515761,
+  dark-3: #333333,
+  dark-4: #424242,
+  black: #000,
+);
+
+// text-font-size
+$font-base-size: 1px;
+$font-sizes: (
+  12: 12,
+  14: 14,
+  16: 16,
+);
+
+// text-font-weight
+$font-weight: (
+  100,
+  200,
+  300,
+  400,
+  500,
+  600,
+  700,
+  800,
+  900,
+  lighter,
+  // 400
+    normal,
+  // 700
+    bold,
+  bolder
+);
+
+// text-line-height
+$line-height: (
+  20: 20px,
+  30: 30px,
+  40: 40px,
+);
+
+// box
+// box-space
+$space-base-size: 1px;
+$space-types: (
+  m: margin,
+  p: padding,
+);
+$space-directions: (
+  t: top,
+  r: right,
+  b: bottom,
+  l: left,
+);
+$space-sizes: (
+  3: 3.6,
+  5: 5,
+  10: 10,
+  14: 14,
+  20: 20,
+);
+
+$border-color: #d4d9de;
+$box-shadow-color: #000;
+$text-shadow-color: #000;

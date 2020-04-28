@@ -1,0 +1,77 @@
+// text-color bg-color
+@each $color-key, $color-value in $colors {
+  .text-#{$color-key} {
+    color: $color-value;
+  }
+
+  .bg-#{$color-key} {
+    background-color: $color-value;
+  }
+}
+
+// text-font-size
+@each $font-size-key, $font-size-value in $font-sizes {
+  .fs-#{$font-size-key} {
+    font-size: $font-size-value * $font-base-size;
+  }
+}
+
+// text-font-weight
+@each $font-weight-var in $font-weight {
+  .fw-#{$font-weight-var} {
+    font-weight: $font-weight-var;
+  }
+}
+
+// text-line-height
+@each $line-height-key, $line-height-value in $line-height {
+  .lh-#{$line-height-key} {
+    line-height: $line-height-value;
+  }
+}
+
+// text-align
+@each $text-ai-var in (left, center, right) {
+  .text-#{$text-ai-var} {
+    text-align: $text-ai-var !important;
+  }
+}
+
+@each $vertical-ai-var
+  in (baseline, sub, top, middle, bottom, text-top, text-bottom)
+{
+  .v-#{$vertical-ai-var} {
+    vertical-align: $vertical-ai-var !important;
+  }
+}
+
+// text-overflow text-ellipsis
+.text-ellipsis {
+  text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
+  white-space: normal;
+}
+
+.text-ellipsis-1 {
+  text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.text-ellipsis-2 {
+  text-overflow: clip;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.text-ellipsis-3 {
+  text-overflow: clip;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
