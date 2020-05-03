@@ -1,8 +1,8 @@
+// separation line
 @mixin sep(
+  $w: 100%,
+  $h: 1px,
   $bg-color: #999,
-  $content: "",
-  $width: 100%,
-  $height: 1px,
   $top: auto,
   $right: 0,
   $bottom: 0,
@@ -11,9 +11,9 @@
 ) {
   position: relative;
   &::after {
-    content: $content;
-    width: $width;
-    height: $height;
+    content: "";
+    width: $w;
+    height: $h;
     background-color: $bg-color;
     position: absolute;
     top: $top;
@@ -24,10 +24,19 @@
   }
 }
 
-@mixin p($type: relative, $top: auto, $right: 0, $bottom: 0, $left: auto) {
-  position: $type;
-  top: $top;
-  right: $right;
-  bottom: $bottom;
-  left: $left;
+@mixin bgImg($w: 10px, $h: 10px, $url: "", $size: contain) {
+  width: $w;
+  height: $h;
+  background: url($url) no-repeat center;
+  background-size: $size;
+}
+
+// pseudo-element
+@mixin sde($w: 10px, $h: 10px, $url: "", $size: contain) {
+  content: "";
+  display: inline-block;
+  width: $w;
+  height: $h;
+  background: ($url);
+  background-size: $size;
 }

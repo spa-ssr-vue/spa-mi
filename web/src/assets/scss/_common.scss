@@ -1,0 +1,124 @@
+body {
+  font: 14px/1.5 Helvetica Neue, Helvetica, Arial, Microsoft Yahei,
+    Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
+  color: #333;
+  background-color: #fff;
+  min-width: 1226px;
+}
+
+.container {
+  width: 1226px;
+  margin: 0 auto;
+}
+
+.nav {
+  .nav-item {
+    .nav-link {
+      display: block;
+      &:hover {
+        color: map-get($colors, primary);
+      }
+    }
+  }
+}
+
+.list {
+  .list-item {
+    float: left;
+    .list-link {
+      display: block;
+    }
+  }
+  &.list-sub {
+  }
+}
+
+.dropdown {
+  // position: relative;
+  .dropdown-toggle {
+    display: block;
+  }
+  .dropdown-menu {
+    position: absolute;
+    z-index: 999;
+    display: none;
+  }
+  &:hover {
+    .dropdown-menu {
+      display: block;
+    }
+  }
+}
+
+.icon {
+  display: inline-block;
+  &.icon-cart {
+    @include bgImg(20px, 20px, "./../../../public/imgs/icon-cart-checked.png");
+    position: relative;
+    top: 4px;
+    margin-right: 4px;
+  }
+
+  &.icon-search {
+    @include bgImg(50px, 50px, "./../../../public/imgs/icon-search.png", 20px);
+    padding: 1px 6px;
+    line-height: 30px;
+    position: relative;
+    top: 21px;
+    left: 0px;
+    cursor: pointer;
+    border: 1px solid map-get($colors, gray-3);
+    border-left: none;
+  }
+
+  &.icon-nav-arrow {
+    @include bgImg(10px, 10px, "./../../../public/imgs/icon-arrow.png");
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.sprite {
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+}
+
+.fixed {
+  position: fixed;
+  top: 0;
+  z-index: 9;
+  width: 100%;
+}
+
+.md {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.md-col {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.bfc {
+  overflow: hidden;
+}
+
+.t {
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+  span {
+    width: 100px;
+    height: 100px;
+    background: url("./../logo.png");
+  }
+}

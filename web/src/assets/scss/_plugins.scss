@@ -1,0 +1,32 @@
+.swiper {
+  &.swiper-home {
+    .swiper-wrapper {
+      img {
+        width: 100%;
+      }
+    }
+    // 分页器
+    .swiper-pagination {
+      left: auto;
+      right: 30px;
+      bottom: 20px;
+      text-align: right !important;
+      .swiper-pagination-bullet {
+        background-color: rgba(0, 0, 0, 0.4);
+        opacity: 1;
+
+        &.swiper-pagination-bullet-active {
+          background-color: hsla(0, 0%, 100%, 0.4);
+        }
+      }
+    }
+    // 按钮
+    .swiper-button-prev {
+      left: 234px;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      // color: #ddd;
+    }
+  }
+}

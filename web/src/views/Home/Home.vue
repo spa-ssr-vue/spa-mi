@@ -9,17 +9,12 @@
 <script>
 import NavHeader from "./../../components/NavHeader";
 import NavFooter from "./../../components/NavFooter";
-import { storage } from "./../../utils";
 
 export default {
   name: "Home",
   components: {
     NavHeader,
     NavFooter,
-  },
-  created() {
-    const storageName = "data";
-    storage.setStorage(storageName);
   },
 };
 </script>

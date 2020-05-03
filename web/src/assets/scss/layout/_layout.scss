@@ -69,7 +69,7 @@ $float: (
 );
 @each $float-key, $float-value in $float {
   .f#{$float-key} {
-    float: $float-value;
+    float: $float-value !important;
   }
 }
 
