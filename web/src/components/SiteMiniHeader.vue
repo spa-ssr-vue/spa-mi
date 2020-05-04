@@ -1,10 +1,10 @@
 <template>
-  <div></div>
+  <div>site mini header</div>
 </template>
 
 <script>
 export default {
-  name: "OrderList",
+  name: "SiteMiniHeader",
 };
 </script>
 

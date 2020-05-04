@@ -1,22 +1,22 @@
 <template>
   <div>
-    <site-header></site-header>
-    <router-view></router-view>
+    <site-mini-header></site-mini-header>
+    <div>cart list</div>
     <site-footer></site-footer>
   </div>
 </template>
 
 <script>
-import SiteHeader from "./../../components/SiteHeader";
+import SiteMiniHeader from "./../../components/SiteMiniHeader";
 import SiteFooter from "./../../components/SiteFooter";
 
 export default {
-  name: "Home",
+  name: "Cart",
   components: {
-    SiteHeader,
+    SiteMiniHeader,
     SiteFooter,
   },
 };
 </script>
 
-<style lang="scss"></style>
+<style></style>
