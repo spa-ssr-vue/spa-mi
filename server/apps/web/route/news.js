@@ -2,9 +2,6 @@ module.exports = app => {
   const express = require("express");
   const router = express.Router({ mergeParams: true });
 
-  const Article = require("../../../libs/db/models/Article");
-  const Tag = require("../../../libs/db/models/Tag");
-
   router.get("/", async (req, res, next) => {
     const { type = "" } = req.query;
     let newsList = [];

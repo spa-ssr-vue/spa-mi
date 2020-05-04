@@ -1,11 +1,10 @@
 module.exports = app => {
   const express = require("express");
   const router = express.Router({ mergeParams: true });
-  const Channel = require("./../../../libs/db/models/Channel");
-  const Article = require("./../../../libs/db/models/Article");
+  const Category = require("./../../../libs/db/models/Category");
 
   router.get("/", async (req, res, next) => {
-    const channels = await Channel.find();
+    const channels = await Category.find();
     res.send(channels);
   });
 

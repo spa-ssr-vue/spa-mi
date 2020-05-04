@@ -2,10 +2,14 @@ module.exports = app => {
   const express = require("express");
   const router = express.Router({ mergeParams: true });
   const resourceMiddleware = require("./../middleware/resource")(app);
+  const crudService = require("./../service/crud");
+
+  const Category = require("./../../../libs/db/models/Category");
 
   router.post("/", async (req, res, next) => {
     const item = req.body;
     const data = await req.Model.create(item);
+    // const data = await crudService.create(req.Model, item);
     res.send({
       success: true,
       data,

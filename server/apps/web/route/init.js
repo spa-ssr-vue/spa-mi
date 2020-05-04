@@ -1,8 +1,8 @@
 module.exports = app => {
-  const Channel = require("./../../../libs/db/models/Channel");
-  const Tag = require("./../../../libs/db/models/Tag");
-  const Article = require("./../../../libs/db/models/Article");
-  const User = require("./../../../libs/db/models/User");
+  // const Channel = require("./../../../libs/db/models/Channel");
+  // const Tag = require("./../../../libs/db/models/Tag");
+  // const Article = require("./../../../libs/db/models/Article");
+  // const User = require("./../../../libs/db/models/User");
 
   app.use("/web/api/init/:flag", async (req, res, next) => {
     const flag = req.params.flag;
