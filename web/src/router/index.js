@@ -14,6 +14,11 @@ import Order from "../views/Order/Order.vue";
 import OrderConfirm from "../views/Order/OrderConfirm.vue";
 import OrderPay from "../views/Order/OrderPay.vue";
 
+import Auth from "../views/Auth/Auth.vue";
+import AuthLogin from "../views/Auth/AuthLogin.vue";
+import AuthRegister from "../views/Auth/AuthRegister.vue";
+import AuthReset from "../views/Auth/AuthReset.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -59,6 +64,28 @@ const routes = [
     children: [
       { path: "/", name: "order-confirm", component: OrderConfirm },
       { path: "/order/pay", name: "order-pay", component: OrderPay },
+    ],
+  },
+  {
+    path: "/auth",
+    name: "auth",
+    component: Auth,
+    children: [
+      {
+        path: "/auth/login",
+        name: "auth-login",
+        component: AuthLogin,
+      },
+      {
+        path: "/auth/register",
+        name: "auth-register",
+        component: AuthRegister,
+      },
+      {
+        path: "/auth/reset",
+        name: "auth-reset",
+        component: AuthReset,
+      },
     ],
   },
 ];

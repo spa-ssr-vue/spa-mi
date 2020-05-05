@@ -1,10 +1,10 @@
 <template>
-  <div>product information header</div>
+  <div>重置密码界面</div>
 </template>
 
 <script>
 export default {
-  name: "ProductInforHeader",
+  name: "AuthReset",
 };
 </script>
 

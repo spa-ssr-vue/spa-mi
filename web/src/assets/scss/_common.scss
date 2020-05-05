@@ -41,17 +41,25 @@ body {
   .dropdown-menu {
     position: absolute;
     z-index: 999;
-    display: none;
+    // display: none;
+    height: 0px;
+    overflow: hidden;
+    transition: all 0.3s;
   }
   &:hover {
     .dropdown-menu {
-      display: block;
+      // display: block;
+      // height: 0px;
     }
   }
 }
 
 .icon {
   display: inline-block;
+  &.icon-logo {
+    @include bgImg(49px, 48px, "./../../../public/imgs/logo-mi.png");
+  }
+
   &.icon-cart {
     @include bgImg(20px, 20px, "./../../../public/imgs/icon-cart-checked.png");
     position: relative;
@@ -77,6 +85,25 @@ body {
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
+  }
+}
+
+.btn {
+  background-color: map-get($colors, primary);
+  &.btn-register {
+    width: 100%;
+    margin-top: 15px;
+    border: 1px solid rgba(186, 186, 186, 0.3);
+    border-radius: 0;
+    color: map-get($colors, white);
+  }
+
+  &.btn-login {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 0;
+    margin-top: 10px;
   }
 }
 

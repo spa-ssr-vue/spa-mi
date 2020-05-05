@@ -22,7 +22,7 @@
         <div class="swiper-button-next"></div>
       </swiper>
       <ul class="nav nav-aside text-white fs-14">
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown aside">
           <a class="nav-link dropdown-toggle" href="javascript:;"
             >手机 电话卡<span class="icon icon-nav-arrow"></span
           ></a>
@@ -30,7 +30,7 @@
             我是第 个aside nav hover 出来的
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown aside">
           <a class="nav-link dropdown-toggle" href="javascript:;"
             >电视 盒子<span class="icon icon-nav-arrow"></span
           ></a>
@@ -38,7 +38,7 @@
             我是第 个aside nav hover 出来的
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown aside">
           <a class="nav-link dropdown-toggle" href="javascript:;"
             >笔记本 显示器 平板<span class="icon icon-nav-arrow"></span
           ></a>
@@ -46,7 +46,7 @@
             我是第 个aside nav hover 出来的
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown aside">
           <a class="nav-link dropdown-toggle" href="javascript:;"
             >家电 插线板<span class="icon icon-nav-arrow"></span
           ></a>
@@ -54,7 +54,7 @@
             我是第 个aside nav hover 出来的
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown aside">
           <a class="nav-link dropdown-toggle" href="javascript:;"
             >出行 穿戴<span class="icon icon-nav-arrow"></span
           ></a>
@@ -62,7 +62,7 @@
             我是第 个aside nav hover 出来的
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown aside">
           <a class="nav-link dropdown-toggle" href="javascript:;"
             >智能 路由器<span class="icon icon-nav-arrow"></span
           ></a>
@@ -70,7 +70,7 @@
             我是第 个aside nav hover 出来的
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown aside">
           <a class="nav-link dropdown-toggle" href="javascript:;"
             >电源 配件<span class="icon icon-nav-arrow"></span
           ></a>
@@ -78,7 +78,7 @@
             我是第 个aside nav hover 出来的
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown aside">
           <a class="nav-link dropdown-toggle" href="javascript:;"
             >健康 儿童<span class="icon icon-nav-arrow"></span
           ></a>
@@ -86,7 +86,7 @@
             我是第 个aside nav hover 出来的
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown aside">
           <a class="nav-link dropdown-toggle" href="javascript:;"
             >耳机 音箱<span class="icon icon-nav-arrow"></span
           ></a>
@@ -94,7 +94,7 @@
             我是第 个aside nav hover 出来的
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown aside">
           <a class="nav-link dropdown-toggle" href="javascript:;"
             >生活 箱包<span class="icon icon-nav-arrow"></span
           ></a>
@@ -240,17 +240,25 @@ export default {
           }
         }
       }
+    }
+  }
 
-      .dropdown {
+  .dropdown {
+    &.aside {
+      &:hover {
         .dropdown-menu {
-          position: absolute;
-          top: 0;
-          left: 234px;
-          width: 500px;
-          height: 460px;
-          background-color: #fff;
-          color: mediumpurple;
+          display: block;
         }
+      }
+      .dropdown-menu {
+        position: absolute;
+        top: 0;
+        left: 234px;
+        width: 500px;
+        height: 460px;
+        background-color: #fff;
+        color: mediumpurple;
+        display: none;
       }
     }
   }
@@ -334,7 +342,5 @@ export default {
       background: lightgreen;
     }
   }
-
-  // margin-bottom: 20px;
 }
 </style>

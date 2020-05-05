@@ -13,14 +13,15 @@ require("./../libs/db/db")(app);
 
 // routes
 require("./admin/route")(app);
-// require("./web/route")(app);
+require("./web/route")(app);
+
+app.set("SECRET", "h3zg0jlx34e2i9bg5ut3hgs68e5d1t0gj042ly23c");
 
 // error handle
 app.use((err, req, res, next) => {
-  console.log(err.message);
-  res.send({
-    status: 500,
-    message: "请求错误",
+  res.status(err.statusCode || 500).send({
+    status: err.statusCode || 500,
+    message: err.message || "服务器错误",
   });
 });
 

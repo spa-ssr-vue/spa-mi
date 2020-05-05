@@ -11,6 +11,8 @@ $colors: (
   gray-5: #5f5750,
   gray-6: #605751,
   gray-7: #757575,
+  gray-8: #999999,
+  gray-9: #f9f9f9,
   dark-2: #515761,
   dark-3: #333333,
   dark-4: #424242,
@@ -25,6 +27,7 @@ $font-sizes: (
   14: 14,
   16: 16,
   22: 22,
+  24: 24,
 );
 
 // text-font-weight
@@ -67,7 +70,6 @@ $space-directions: (
   l: left,
 );
 $space-sizes: (
-  3: 3.6,
   5: 5,
   10: 10,
   14: 14,

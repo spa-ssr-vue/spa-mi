@@ -28,11 +28,54 @@
           <a class="nav-link" href="javascript:;">Select Location</a>
         </div>
         <div class="topbar-user fr">
-          <a class="px-5" href="javascript:;">登录</a>
-          <span class="">|</span>
-          <a class=" px-5" href="javascript:;">注册</a>
-          <span class="">|</span>
-          <a class=" px-10" href="javascript:;">消息通知</a>
+          <div v-if="auth.user.username" class="d-inline-block dropdown user">
+            <router-link class="dropdown-toggle" to="/user">{{
+              auth.user.username
+            }}</router-link>
+            <div class="dropdown-menu">
+              <ul class="nav nav-user">
+                <li class="nav-item">
+                  <router-link class="nav-link" to="/user"
+                    >个人中心</router-link
+                  >
+                </li>
+                <li class="nav-item">
+                  <router-link class="nav-link" to="/user"
+                    >评价晒单</router-link
+                  >
+                </li>
+                <li class="nav-item">
+                  <router-link class="nav-link" to="/user"
+                    >我的喜欢</router-link
+                  >
+                </li>
+                <li class="nav-item">
+                  <router-link class="nav-link" to="/user"
+                    >小米账户</router-link
+                  >
+                </li>
+                <li class="nav-item">
+                  <router-link
+                    class="nav-link"
+                    to="/"
+                    @click.native.prevent="logout"
+                    >退出登陆</router-link
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div v-else class="d-inline-block">
+            <router-link class="px-5" to="/auth/login">登录</router-link>
+            <span class="">|</span>
+            <router-link class="px-5" to="/auth/register">注册</router-link>
+            <span class="">|</span>
+          </div>
+          <a class="px-10" href="javascript:;">消息通知</a>
+          <div v-if="auth.user.username" class="d-inline-block">
+            <span class="">|</span>
+            <router-link class="px-10" to="/user/order">我的订单</router-link>
+          </div>
           <div class="dropdown cart">
             <a class="dropdown-toggle" href="javascript:;"
               ><i class="icon icon-cart"></i><span>购物车</span
@@ -56,38 +99,40 @@
           </form>
         </div>
         <ul class="nav nav-site fr">
-          <li class="nav-item dropdown">
-            <a class="nav-link" href="javascript:;">小米手机</a>
+          <li class="nav-item dropdown site">
+            <a class="nav-link dropdown-toggle" href="javascript:;">小米手机</a>
             <div class="dropdown-menu">zzzz</div>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link" href="javascript:;">Redmi 红米</a>
+          <li class="nav-item dropdown site">
+            <a class="nav-link dropdown-toggle" href="javascript:;"
+              >Redmi 红米</a
+            >
             <div class="dropdown-menu">zzzz</div>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link" href="javascript:;">电视</a>
+          <li class="nav-item dropdown site">
+            <a class="nav-link dropdown-toggle" href="javascript:;">电视</a>
             <div class="dropdown-menu">zzzz</div>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link" href="javascript:;">笔记本</a>
+          <li class="nav-item dropdown site">
+            <a class="nav-link dropdown-toggle" href="javascript:;">笔记本</a>
             <div class="dropdown-menu">zzzz</div>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link" href="javascript:;">家电</a>
+          <li class="nav-item dropdown site">
+            <a class="nav-link dropdown-toggle" href="javascript:;">家电</a>
             <div class="dropdown-menu">zzzz</div>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link" href="javascript:;">路由器</a>
+          <li class="nav-item dropdown site">
+            <a class="nav-link dropdown-toggle" href="javascript:;">路由器</a>
             <div class="dropdown-menu">zzzz</div>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link" href="javascript:;">智能硬件</a>
+          <li class="nav-item dropdown site">
+            <a class="nav-link dropdown-toggle" href="javascript:;">智能硬件</a>
             <div class="dropdown-menu">zzzz</div>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item">
             <a class="nav-link" href="javascript:;">服务</a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item">
             <a class="nav-link" href="javascript:;">社区</a>
           </li>
         </ul>
@@ -97,8 +142,21 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import { storage } from "./../utils";
+
 export default {
   name: "NavHeader",
+  computed: {
+    ...mapState(["auth"]),
+  },
+  methods: {
+    logout() {
+      storage.removeItem("auth", "token");
+      storage.removeItem("auth", "user");
+      window.location.reload();
+    },
+  },
 };
 </script>
 
@@ -179,87 +237,122 @@ export default {
       }
     }
   }
-}
 
-.nav {
-  &.nav-top {
-    .nav-link {
-      display: inline-block;
-      &:hover {
-        color: map-get($colors, white);
+  .nav {
+    &.nav-top {
+      .nav-link {
+        display: inline-block;
+        &:hover {
+          color: map-get($colors, white);
+        }
+      }
+    }
+
+    &.nav-site {
+      width: 650px;
+      margin-right: 40px;
+      .nav-item {
+        float: left;
+        padding: 0 10px;
+      }
+    }
+
+    &.nav-user {
+      width: 110px;
+      padding: 7px 0;
+      .nav-item {
+        .nav-link {
+          padding: 3px 30px;
+          line-height: 2;
+          color: map-get($colors, dark-4);
+          &:hover {
+            color: map-get($colors, primary);
+          }
+        }
       }
     }
   }
 
-  &.nav-site {
-    .nav-item {
-      float: left;
-      padding: 0 10px;
+  .dropdown {
+    &.user {
+      position: relative;
+      width: 110px;
+      text-align: center;
+      &:hover {
+        background-color: map-get($colors, white);
+        .dropdown-toggle {
+          color: map-get($colors, primary);
+        }
+        .dropdown-menu {
+          height: 170px;
+        }
+      }
+
+      .dropdown-menu {
+        background-color: map-get($colors, white);
+      }
     }
 
-    width: 650px;
-    margin-right: 40px;
-    .dropdown {
+    &.cart {
+      position: relative;
+      display: inline-block;
+      width: 120px;
+      height: 40px;
+      line-height: 40px;
+      margin-left: 15px;
+      text-align: center;
+      &:hover {
+        .dropdown-toggle {
+          background-color: map-get($colors, white);
+          span {
+            color: map-get($colors, primary);
+          }
+        }
+        .dropdown-menu {
+          height: 100px;
+        }
+
+        .icon.icon-cart {
+          background: url("./../../public/imgs/icon-cart-hover.png") no-repeat
+            center;
+          background-size: contain;
+        }
+      }
+
+      .dropdown-toggle {
+        background-color: map-get($colors, dark-4);
+        span {
+          color: map-get($colors, gray-3);
+          margin-right: 6px;
+        }
+      }
+
+      .dropdown-menu {
+        height: 0px;
+        right: 0;
+        top: 39px;
+        width: 316px;
+        line-height: 100px;
+        text-align: center;
+        background-color: map-get($colors, white);
+        color: map-get($colors, primary);
+      }
+    }
+
+    &.site {
+      &:hover {
+        .dropdown-menu {
+          height: 100px;
+        }
+      }
       .dropdown-menu {
         width: 100%;
-        height: 100px;
         left: 0;
         top: 100px;
         text-align: center;
         background-color: map-get($colors, black);
         color: map-get($colors, primary);
       }
-    }
-  }
-}
-
-.dropdown {
-  &.cart {
-    position: relative;
-    display: inline-block;
-    width: 120px;
-    height: 40px;
-    line-height: 40px;
-    margin-left: 15px;
-    text-align: center;
-    &:hover {
-      .dropdown-toggle {
-        background-color: map-get($colors, white);
-        span {
-          color: map-get($colors, primary);
-        }
-      }
-      .dropdown-menu {
-        height: 100px;
-      }
-
-      .icon.icon-cart {
-        background: url("./../../public/imgs/icon-cart-hover.png") no-repeat
-          center;
-        background-size: contain;
-      }
-    }
-
-    .dropdown-toggle {
-      background-color: map-get($colors, dark-4);
-      span {
-        color: map-get($colors, gray-3);
-        margin-right: 6px;
-      }
-    }
-
-    .dropdown-menu {
-      // display: block;
-      height: 0px;
-      right: 0;
-      top: 40px;
-      width: 316px;
-      height: 100px;
-      line-height: 100px;
-      text-align: center;
-      background-color: map-get($colors, white);
-      color: map-get($colors, primary);
-      // transition: all 0.2s;
     }
   }
 }
