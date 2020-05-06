@@ -11,10 +11,6 @@ export default {
       state.token = data.token;
       state.user = data.user;
     },
-    // removeUser(state) {
-    //   state.token = "";
-    //   state.user = { username: "" };
-    // },
   },
   actions: {
     async getUser({ commit }) {

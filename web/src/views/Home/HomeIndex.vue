@@ -22,84 +22,16 @@
         <div class="swiper-button-next"></div>
       </swiper>
       <ul class="nav nav-aside text-white fs-14">
-        <li class="nav-item dropdown aside">
-          <a class="nav-link dropdown-toggle" href="javascript:;"
-            >手机 电话卡<span class="icon icon-nav-arrow"></span
-          ></a>
+        <li
+          v-for="(category, index) in asideCategories"
+          :key="`category-aside-${index}`"
+          class="nav-item dropdown aside"
+        >
+          <router-link class="nav-link dropdown-toggle" :to="category.path"
+            >{{ category.name }}<span class="icon icon-nav-arrow"></span
+          ></router-link>
           <div class="dropdown-menu">
-            我是第 个aside nav hover 出来的
-          </div>
-        </li>
-        <li class="nav-item dropdown aside">
-          <a class="nav-link dropdown-toggle" href="javascript:;"
-            >电视 盒子<span class="icon icon-nav-arrow"></span
-          ></a>
-          <div class="dropdown-menu">
-            我是第 个aside nav hover 出来的
-          </div>
-        </li>
-        <li class="nav-item dropdown aside">
-          <a class="nav-link dropdown-toggle" href="javascript:;"
-            >笔记本 显示器 平板<span class="icon icon-nav-arrow"></span
-          ></a>
-          <div class=" dropdown-menu">
-            我是第 个aside nav hover 出来的
-          </div>
-        </li>
-        <li class="nav-item dropdown aside">
-          <a class="nav-link dropdown-toggle" href="javascript:;"
-            >家电 插线板<span class="icon icon-nav-arrow"></span
-          ></a>
-          <div class=" dropdown-menu">
-            我是第 个aside nav hover 出来的
-          </div>
-        </li>
-        <li class="nav-item dropdown aside">
-          <a class="nav-link dropdown-toggle" href="javascript:;"
-            >出行 穿戴<span class="icon icon-nav-arrow"></span
-          ></a>
-          <div class=" dropdown-menu">
-            我是第 个aside nav hover 出来的
-          </div>
-        </li>
-        <li class="nav-item dropdown aside">
-          <a class="nav-link dropdown-toggle" href="javascript:;"
-            >智能 路由器<span class="icon icon-nav-arrow"></span
-          ></a>
-          <div class=" dropdown-menu">
-            我是第 个aside nav hover 出来的
-          </div>
-        </li>
-        <li class="nav-item dropdown aside">
-          <a class="nav-link dropdown-toggle" href="javascript:;"
-            >电源 配件<span class="icon icon-nav-arrow"></span
-          ></a>
-          <div class=" dropdown-menu">
-            我是第 个aside nav hover 出来的
-          </div>
-        </li>
-        <li class="nav-item dropdown aside">
-          <a class="nav-link dropdown-toggle" href="javascript:;"
-            >健康 儿童<span class="icon icon-nav-arrow"></span
-          ></a>
-          <div class=" dropdown-menu">
-            我是第 个aside nav hover 出来的
-          </div>
-        </li>
-        <li class="nav-item dropdown aside">
-          <a class="nav-link dropdown-toggle" href="javascript:;"
-            >耳机 音箱<span class="icon icon-nav-arrow"></span
-          ></a>
-          <div class=" dropdown-menu">
-            我是第 个aside nav hover 出来的
-          </div>
-        </li>
-        <li class="nav-item dropdown aside">
-          <a class="nav-link dropdown-toggle" href="javascript:;"
-            >生活 箱包<span class="icon icon-nav-arrow"></span
-          ></a>
-          <div class=" dropdown-menu">
-            我是第 个aside nav hover 出来的
+            我是第{{ index }}个aside nav hover 出来的
           </div>
         </li>
       </ul>
@@ -178,10 +110,22 @@
 
 <script>
 export default {
-  name: "Index",
+  name: "HomeIndex",
   data() {
     return {
       bannar: {},
+      asideCategories: [
+        { name: "手机 电话卡", path: "javascript:;" },
+        { name: "电视 盒子", path: "javascript:;" },
+        { name: "笔记本 显示器 平板", path: "javascript:;" },
+        { name: "家电 插线板", path: "javascript:;" },
+        { name: "出行 穿戴", path: "javascript:;" },
+        { name: "智能 路由器", path: "javascript:;" },
+        { name: "电源 配件", path: "javascript:;" },
+        { name: "健康 儿童", path: "javascript:;" },
+        { name: "耳机 音箱", path: "javascript:;" },
+        { name: "生活 箱包", path: "javascript:;" },
+      ],
       swiperOptions: {
         loop: true,
         autoplay: { delay: 4000 },

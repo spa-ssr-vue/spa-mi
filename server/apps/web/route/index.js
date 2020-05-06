@@ -1,6 +1,6 @@
 module.exports = app => {
   require("./auth")(app);
-  // require("./channels")(app);
-  // require("./news")(app);
+  require("./product")(app);
+  require("./cart")(app);
   // require("./init")(app);
 };

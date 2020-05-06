@@ -86,10 +86,41 @@ body {
     top: 50%;
     transform: translateY(-50%);
   }
+
+  &.icon-check {
+    @include bgImg(20px, 20px, "./../../../public/imgs/icon-gou.png");
+    border: 1px solid map-get($colors, gray-1);
+    background-color: map-get($colors, white);
+    vertical-align: middle;
+    cursor: pointer;
+    &.checked {
+      background-color: map-get($colors, primary);
+    }
+  }
+
+  &.icon-plus {
+    width: 40px;
+    height: 30px;
+    font-size: 20px;
+    background-color: map-get($colors, gray-1);
+    cursor: pointer;
+  }
+
+  &.icon-subtract {
+    width: 40px;
+    height: 30px;
+    font-size: 20px;
+    background-color: map-get($colors, gray-1);
+    cursor: pointer;
+  }
 }
 
 .btn {
+  display: inline-block;
   background-color: map-get($colors, primary);
+  &.btn-primary {
+    color: map-get($colors, white);
+  }
   &.btn-register {
     width: 100%;
     margin-top: 15px;

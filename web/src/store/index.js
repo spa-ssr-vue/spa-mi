@@ -3,6 +3,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 import auth from "./auth";
+import cart from "./cart";
 
 export default new Vuex.Store({
   state: {},
@@ -10,5 +11,6 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     auth,
+    cart,
   },
 });

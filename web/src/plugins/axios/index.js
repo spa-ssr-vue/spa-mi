@@ -1,6 +1,7 @@
 import Vue from "vue";
 import axios from "axios";
 import { storage } from "./../../utils";
+import router from "./../../router";
 
 const http = axios.create({
   baseURL: process.env.VUE_APP_API_URL || "/web/api",
@@ -28,11 +29,13 @@ http.interceptors.response.use(
   err => {
     const error = err.response.data;
     if (error.status === 422 || error.status === 401) {
-      console.log(222222);
       Vue.prototype.$message({
         type: "warning",
         message: error.message,
       });
+    }
+    if (error.status === 401) {
+      router.push("/auth/login");
     }
     return Promise.reject(err);
   }

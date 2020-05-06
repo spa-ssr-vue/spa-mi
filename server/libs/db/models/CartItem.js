@@ -5,9 +5,9 @@ const schema = new mongoose.Schema(
     cart: { type: mongoose.SchemaTypes.ObjectId, ref: "Cart" },
     product: { type: mongoose.SchemaTypes.ObjectId, ref: "Product" },
     name: { type: String },
-    isSelected: { type: Boolean, default: true },
+    selected: { type: Boolean, default: true },
     price: { type: Number },
-    count: { type: Number },
+    count: { type: Number, default: 1 },
     cover: { type: String },
   },
   {

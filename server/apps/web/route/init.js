@@ -1,65 +1,77 @@
 module.exports = app => {
-  // const Channel = require("./../../../libs/db/models/Channel");
-  // const Tag = require("./../../../libs/db/models/Tag");
+  const Category = require("./../../../libs/db/models/Category");
+  const Product = require("./../../../libs/db/models/Product");
   // const Article = require("./../../../libs/db/models/Article");
   // const User = require("./../../../libs/db/models/User");
 
   app.use("/web/api/init/:flag", async (req, res, next) => {
     const flag = req.params.flag;
     switch (flag) {
-      case "channel":
-        let name = [
-          "广东",
-          "广州",
-          "深圳",
-          "北京",
-          "上海",
-          "武汉",
-          "福建",
-          "成都",
-          "杭州",
-          "重庆",
-          "石家庄",
-          "河北",
-          "河南",
-          "西安",
-          "江苏",
-          "辽宁",
-          "浙江",
-          "海南",
-          "天津",
-          "银川",
+      case "product":
+        let products = [
+          {
+            name: " Redmi K30 Pro",
+            cover:
+              "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0203f4e7dafcc0c9016a1b48556abf30.jpg?thumb=1&w=192&h=132&f=webp&q=90",
+            title: " Redmi K30 Pro",
+            description: "2999元起",
+            price: 2999,
+          },
+          {
+            name: "Redmi K30 Pro 变焦版",
+            cover:
+              "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e95616fd1620e469386f007eeab1c763.jpg?thumb=1&w=192&h=132&f=webp&q=90",
+            title: "Redmi K30 Pro 变焦版",
+            description: "3799元起",
+            price: 3799,
+          },
+          {
+            name: "Redmi K30",
+            cover:
+              "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/cff2977b8aab1e43b94b2f00083f4ae1.jpg?thumb=1&w=192&h=132&f=webp&q=90",
+            title: "Redmi K30",
+            description: "1599元起",
+            price: 1599,
+          },
+          {
+            name: "Redmi K30 5G",
+            cover:
+              "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/742a328bdaa242aea89ec2a9c8661013.jpg?thumb=1&w=192&h=132&f=webp&q=90",
+            title: "Redmi K30 5G",
+            description: "1999元起",
+            price: 1999,
+          },
+          {
+            name: "Redmi 8A",
+            cover:
+              "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/398311b2e6f47ac324ba0421a0ac1b80.png?thumb=1&w=192&h=132&f=webp&q=90",
+            title: "Redmi 8A",
+            description: "599元起",
+            price: 599,
+          },
+          {
+            name: "Redmi Note 8",
+            cover:
+              "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/dacd6a3d8440b7a038e9778702bd6db6.png?thumb=1&w=192&h=132&f=webp&q=90",
+            title: "Redmi Note 8",
+            description: "899元起",
+            price: 899,
+          },
         ];
-        let userList = [
-          "_l_guangdong|广东",
-          "_l_guangzhou|广州",
-          "_l_shenzhen|深圳",
-          "_l_beijing|北京",
-          "_l_shanghai|上海",
-          "_l_wuhan|武汉",
-          "_l_fujian|福建",
-          "_l_chengdu|成都",
-          "_l_hangzhou|杭州",
-          "_l_chongqing|重庆",
-          "_l_shijiazhuang|石家庄",
-          "_l_hebei|河北",
-          "_l_henan|河南",
-          "_l_xian|西安",
-          "_l_jiangsu|江苏",
-          "_l_liaoning|辽宁",
-          "_l_zhejiang|浙江",
-          "_l_hainan|海南",
-          "_l_tianjin|天津",
-          "_l_ningxia|银川",
-        ];
-        let ret = userList.map((item, index) => {
-          return {
-            alias: item.split("|").shift().slice(3),
-            name: name[index],
-          };
+
+        const cat = await Category.findOne({ id: 120000 });
+
+        let items = products.map((item, index) => {
+          item.category = cat._id;
+          item.stock = 100;
+          item.status = 1;
+          return item;
         });
-        // const items = await Channel.insertMany(ret);
-        res.send(items);
+
+        await Product.insertMany(items);
+
+        res.send(await Product.find());
+        // res.send(items);
         break;
 
       case "news":

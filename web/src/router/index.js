@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import Home from "../views/Home/Home.vue";
-import Index from "../views/Home/Index.vue";
+import HomeIndex from "../views/Home/HomeIndex.vue";
 
 import Product from "../views/Product/Product.vue";
 import ProductDetail from "../views/Product/ProductDetail.vue";
@@ -30,8 +30,8 @@ const routes = [
     children: [
       {
         path: "/index",
-        name: "index",
-        component: Index,
+        name: "home-index",
+        component: HomeIndex,
       },
     ],
   },
@@ -44,11 +44,13 @@ const routes = [
         path: "/products/:id",
         name: "product-detail",
         component: ProductDetail,
+        props: true,
       },
       {
         path: "/products/buy/:id",
         name: "product-buy",
         component: ProductBuy,
+        props: true,
       },
     ],
   },

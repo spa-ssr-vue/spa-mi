@@ -32,11 +32,26 @@
 }
 
 // pseudo-element
-@mixin sde($w: 10px, $h: 10px, $url: "", $size: contain) {
-  content: "";
-  display: inline-block;
-  width: $w;
-  height: $h;
-  background: ($url);
-  background-size: $size;
+@mixin sde(
+  $w: 10px,
+  $h: 10px,
+  $color: #999,
+  $t: auto,
+  $r: auto,
+  $b: auto,
+  $l: auto
+) {
+  position: relative;
+  &:after {
+    content: "";
+    display: inline-block;
+    width: $w;
+    height: $h;
+    background-color: $color;
+    position: absolute;
+    top: $t;
+    right: $r;
+    bottom: $b;
+    left: $l;
+  }
 }

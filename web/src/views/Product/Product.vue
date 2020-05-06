@@ -1,8 +1,7 @@
 <template>
   <div>
     <site-header></site-header>
-    <h2>product</h2>
-    <router-view></router-view>
+    <router-view :key="$route.path"></router-view>
     <site-footer></site-footer>
   </div>
 </template>
@@ -16,11 +15,6 @@ export default {
   components: {
     SiteHeader,
     SiteFooter,
-  },
-  props: {
-    id: {
-      type: String,
-    },
   },
 };
 </script>

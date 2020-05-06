@@ -28,9 +28,9 @@
           <a class="nav-link" href="javascript:;">Select Location</a>
         </div>
         <div class="topbar-user fr">
-          <div v-if="auth.user.username" class="d-inline-block dropdown user">
+          <div v-if="user.username" class="d-inline-block dropdown user">
             <router-link class="dropdown-toggle" to="/user">{{
-              auth.user.username
+              user.username
             }}</router-link>
             <div class="dropdown-menu">
               <ul class="nav nav-user">
@@ -72,14 +72,14 @@
             <span class="">|</span>
           </div>
           <a class="px-10" href="javascript:;">消息通知</a>
-          <div v-if="auth.user.username" class="d-inline-block">
+          <div v-if="user.username" class="d-inline-block">
             <span class="">|</span>
             <router-link class="px-10" to="/user/order">我的订单</router-link>
           </div>
           <div class="dropdown cart">
-            <a class="dropdown-toggle" href="javascript:;"
+            <router-link to="/cart" class="dropdown-toggle" href="javascript:;"
               ><i class="icon icon-cart"></i><span>购物车</span
-              ><span>(0)</span></a
+              ><span>({{ count ? count : 0 }})</span></router-link
             >
             <div class="dropdown-menu">
               <div>购物车中还没有商品，赶紧选购吧！</div>
@@ -99,35 +99,45 @@
           </form>
         </div>
         <ul class="nav nav-site fr">
-          <li class="nav-item dropdown site">
-            <a class="nav-link dropdown-toggle" href="javascript:;">小米手机</a>
-            <div class="dropdown-menu">zzzz</div>
-          </li>
-          <li class="nav-item dropdown site">
-            <a class="nav-link dropdown-toggle" href="javascript:;"
-              >Redmi 红米</a
-            >
-            <div class="dropdown-menu">zzzz</div>
-          </li>
-          <li class="nav-item dropdown site">
-            <a class="nav-link dropdown-toggle" href="javascript:;">电视</a>
-            <div class="dropdown-menu">zzzz</div>
-          </li>
-          <li class="nav-item dropdown site">
-            <a class="nav-link dropdown-toggle" href="javascript:;">笔记本</a>
-            <div class="dropdown-menu">zzzz</div>
-          </li>
-          <li class="nav-item dropdown site">
-            <a class="nav-link dropdown-toggle" href="javascript:;">家电</a>
-            <div class="dropdown-menu">zzzz</div>
-          </li>
-          <li class="nav-item dropdown site">
-            <a class="nav-link dropdown-toggle" href="javascript:;">路由器</a>
-            <div class="dropdown-menu">zzzz</div>
-          </li>
-          <li class="nav-item dropdown site">
-            <a class="nav-link dropdown-toggle" href="javascript:;">智能硬件</a>
-            <div class="dropdown-menu">zzzz</div>
+          <li
+            v-for="(category, index) in siteCategories"
+            :key="`category-${index}`"
+            class="nav-item dropdown site"
+          >
+            <router-link :to="category.path" class="nav-link dropdown-toggle">{{
+              category.name
+            }}</router-link>
+            <div class="dropdown-menu">
+              <div class="wrap">
+                <ul class="container clearfix text-center">
+                  <li
+                    v-for="(product, i) in category.productList"
+                    :key="`product-${i}`"
+                    class="fl"
+                  >
+                    <router-link
+                      :to="`/products/buy/${product._id}`"
+                      class="text-white"
+                    >
+                      <div class="cover">
+                        <img
+                          :src="product.cover"
+                          :alt="product.name"
+                          width="160"
+                          height="110"
+                        />
+                      </div>
+                      <div class="title text-dark-3 fs-12 lh-20 mt-14">
+                        {{ product.title }}
+                      </div>
+                      <div class="price text-primary fs-12 lh-20">
+                        {{ product.price }}元
+                      </div>
+                    </router-link>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="javascript:;">服务</a>
@@ -144,11 +154,28 @@
 <script>
 import { mapState } from "vuex";
 import { storage } from "./../utils";
+import { getProductList } from "./../api/product";
 
 export default {
   name: "NavHeader",
   computed: {
-    ...mapState(["auth"]),
+    ...mapState({
+      user: state => state.auth.user,
+      count: state => state.cart.cart.totalCount,
+    }),
+  },
+  data() {
+    return {
+      siteCategories: [
+        { name: "小米手机", path: "/" },
+        { name: "Redmi 红米", path: "/" },
+        { name: "电视", path: "/" },
+        { name: "笔记本", path: "/" },
+        { name: "家电", path: "/" },
+        { name: "路由器", path: "/" },
+        { name: "智能硬件", path: "/" },
+      ],
+    };
   },
   methods: {
     logout() {
@@ -156,6 +183,26 @@ export default {
       storage.removeItem("auth", "user");
       window.location.reload();
     },
+    async getSiteProducts() {
+      const res = await getProductList({
+        query: {
+          tag: "site",
+          productId: [110000, 120000, 200000, 300000, 400000, 500000, 600000],
+          limit: 6,
+        },
+      });
+      this.siteCategories = this.siteCategories.map((item, index) => {
+        return {
+          name: item.name,
+          path: `/category/${res.data[index]._id}`,
+          productList: res.data[index].productList,
+        };
+      });
+    },
+  },
+
+  created() {
+    this.getSiteProducts();
   },
 };
 </script>
@@ -342,7 +389,7 @@ export default {
     &.site {
       &:hover {
         .dropdown-menu {
-          height: 100px;
+          height: 230px;
         }
       }
       .dropdown-menu {
@@ -350,8 +397,24 @@ export default {
         left: 0;
         top: 100px;
         text-align: center;
-        background-color: map-get($colors, black);
+        background-color: map-get($colors, white);
         color: map-get($colors, primary);
+        .wrap {
+          border-top: 1px solid map-get($colors, gray-1);
+        }
+        ul {
+          padding: 40px 0 0 0;
+        }
+        li {
+          width: 16.666%;
+          @include sde(1px, 100px, map-get($colors, gray-1), 0, 0);
+          &:last-child:after {
+            width: 0;
+          }
+          a {
+            display: block;
+          }
+        }
       }
     }
   }
