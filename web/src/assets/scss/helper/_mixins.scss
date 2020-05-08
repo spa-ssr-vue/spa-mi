@@ -55,3 +55,27 @@
     left: $l;
   }
 }
+
+@mixin bsde(
+  $w: 10px,
+  $h: 10px,
+  $color: #999,
+  $t: auto,
+  $r: auto,
+  $b: auto,
+  $l: auto
+) {
+  position: relative;
+  &:before {
+    content: "";
+    display: inline-block;
+    width: $w;
+    height: $h;
+    background-color: $color;
+    position: absolute;
+    top: $t;
+    right: $r;
+    bottom: $b;
+    left: $l;
+  }
+}

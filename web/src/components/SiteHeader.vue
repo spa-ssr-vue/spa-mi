@@ -3,7 +3,7 @@
     <div class="header-topbar bg-dark-3 text-gray-3 fs-12">
       <div class="container clearfix">
         <div class="topbar-nav nav nav-top fl">
-          <a class="nav-link" href="javascript:;">小米商城</a>
+          <router-link to="/" class="nav-link">小米商城</router-link>
           <span>|</span>
           <a class="nav-link" href="javascript:;">MIUI</a>
           <span>|</span>
@@ -194,7 +194,7 @@ export default {
       const res = await getProductList({
         query: {
           tag: "site",
-          productId: [110000, 120000, 200000, 300000, 400000, 500000, 600000],
+          productId: [110000, 120000, 440000, 300000, 400000, 500000, 600000],
           limit: 6,
         },
       });

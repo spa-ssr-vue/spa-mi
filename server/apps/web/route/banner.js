@@ -8,8 +8,8 @@ module.exports = app => {
   const Banner = require("../../../libs/db/models/Banner");
 
   router.get("/:id", async (req, res) => {
-    const { id } = req.params;
-    const banner = await Banner.findById(id);
+    const { id = 0 } = req.params;
+    const banner = await Banner.findOne({ id: Number(id) }).populate("product");
     res.send({
       code: 0,
       message: "请求成功",
