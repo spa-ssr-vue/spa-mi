@@ -85,9 +85,9 @@
               >元
             </div>
             <div class="fl">
-              <router-link to="/order/confirm" class="btn btn-primary"
-                >去结算</router-link
-              >
+              <button @click.prevent="confirmOrder" class="btn btn-primary">
+                去结算
+              </button>
             </div>
           </div>
         </div>
@@ -100,6 +100,7 @@
 <script>
 import SiteMiniHeader from "./../../components/SiteMiniHeader";
 import SiteFooter from "./../../components/SiteFooter";
+import { mapState } from "vuex";
 import {
   getCartItem,
   putSelected,
@@ -107,7 +108,6 @@ import {
   deleteCartItem,
   putCount,
 } from "../../api/cart";
-import { mapState } from "vuex";
 
 export default {
   name: "Cart",
@@ -129,12 +129,10 @@ export default {
     }),
     selectedCount() {
       let count = 0;
-      if (this.cart.items) {
-        this.cart.items
-          .slice()
-          .filter(item => item.selected)
-          .forEach(item => (count += item.count));
-      }
+      this.cart.items
+        .slice()
+        .filter(item => item.selected)
+        .forEach(item => (count += item.count || 0));
       return count;
     },
   },
@@ -145,6 +143,7 @@ export default {
     },
 
     async removeItem(id) {
+      await this.$confirm("确定要删除该商品?");
       await deleteCartItem(id);
       await this.getCartInfo();
     },
@@ -164,7 +163,6 @@ export default {
       await this.getCartInfo();
     },
     async remove(id, count) {
-      await this.$confirm("确定要删除该商品?");
       if (count <= 1) {
         this.$message({
           type: "warning",
@@ -176,6 +174,17 @@ export default {
         count: -1,
       });
       await this.getCartInfo();
+    },
+
+    confirmOrder() {
+      if (this.selectedCount === 0) {
+        this.$message({
+          type: "warning",
+          message: "至少在购物车中选择一件",
+        });
+        return;
+      }
+      this.$router.push("/order/confirm");
     },
   },
   created() {

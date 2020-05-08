@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import { storage } from "./../../utils";
 import { mapState } from "vuex";
+import { storage } from "./../../utils";
 import { addCartItem, getCartItem, putCartItem } from "./../../api/cart";
 import { getProduct } from "./../../api/product";
 
@@ -30,25 +30,18 @@ export default {
     };
   },
   computed: {
-    ...mapState(["auth"]),
+    ...mapState({
+      user: state => state.auth.user,
+    }),
   },
   methods: {
     async addCart() {
-      if (!storage.getItem("auth", "token") && this.auth.user.username === "") {
-        this.$message({
-          type: "warning",
-          message: "请先登录",
-        });
-        this.$router.push("/auth/login");
-      }
-
       await addCartItem({
         productId: this.id,
         product: this.product,
       });
 
-      const res = await getCartItem();
-      this.$store.commit("cart/setCart", res.data);
+      this.$store.dispatch("cart/getCart");
     },
 
     async getProductDetail() {

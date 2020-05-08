@@ -3,7 +3,11 @@ import { getCartItem } from "./../api/cart";
 export default {
   namespaced: true,
   state: {
-    cart: {},
+    cart: {
+      totalCount: 0,
+      totalPrice: 0,
+      items: [],
+    },
   },
   mutations: {
     setCart(state, data) {
@@ -11,7 +15,7 @@ export default {
     },
   },
   actions: {
-    async getCart({ commit }, data) {
+    async getCart({ commit }) {
       const res = await getCartItem();
       commit("setCart", res.data);
     },

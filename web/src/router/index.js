@@ -12,7 +12,6 @@ import UserService from "../views/User/UserService.vue";
 import UserManager from "../views/User/UserManager.vue";
 
 import Product from "../views/Product/Product.vue";
-import ProductDetail from "../views/Product/ProductDetail.vue";
 import ProductBuy from "../views/Product/ProductBuy.vue";
 
 import Cart from "../views/Cart/Cart.vue";
@@ -34,36 +33,17 @@ const routes = [
     name: "home",
     component: Home,
     redirect: "/index",
+    // home index,product,user
     children: [
       {
         path: "/index",
         name: "home-index",
         component: HomeIndex,
       },
-    ],
-  },
-  {
-    path: "/user",
-    name: "user",
-    component: User,
-    children: [
-      { path: "/user/order", name: "user-order", component: UserOrder },
-      { path: "/user/center", name: "user-center", component: UserCenter },
-      { path: "/user/address", name: "user-address", component: UserAddress },
-      { path: "/user/service", name: "user-service", component: UserService },
-      { path: "/user/manager", name: "user-manager", component: UserManager },
-    ],
-  },
-  {
-    path: "/products",
-    name: "product",
-    component: Product,
-    children: [
       {
-        path: "/products/:id",
-        name: "product-detail",
-        component: ProductDetail,
-        props: true,
+        path: "/products:id",
+        name: "product",
+        component: Product,
       },
       {
         path: "/products/buy/:id",
@@ -71,13 +51,39 @@ const routes = [
         component: ProductBuy,
         props: true,
       },
+      {
+        path: "/user",
+        name: "user",
+        component: User,
+        children: [
+          { path: "/user/order", name: "user-order", component: UserOrder },
+          { path: "/user/center", name: "user-center", component: UserCenter },
+          {
+            path: "/user/address",
+            name: "user-address",
+            component: UserAddress,
+          },
+          {
+            path: "/user/service",
+            name: "user-service",
+            component: UserService,
+          },
+          {
+            path: "/user/manager",
+            name: "user-manager",
+            component: UserManager,
+          },
+        ],
+      },
     ],
   },
+  // cart
   {
     path: "/cart",
     name: "cart",
     component: Cart,
   },
+  // order
   {
     path: "/order",
     name: "order",
@@ -96,6 +102,7 @@ const routes = [
       },
     ],
   },
+  // auth
   {
     path: "/auth",
     name: "auth",

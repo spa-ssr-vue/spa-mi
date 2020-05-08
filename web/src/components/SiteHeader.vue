@@ -67,22 +67,25 @@
           </div>
           <div v-else class="d-inline-block">
             <router-link class="px-5" to="/auth/login">登录</router-link>
-            <span class="">|</span>
+            <span>|</span>
             <router-link class="px-5" to="/auth/register">注册</router-link>
-            <span class="">|</span>
+            <span>|</span>
           </div>
           <a class="px-10" href="javascript:;">消息通知</a>
           <div v-if="user.username" class="d-inline-block">
-            <span class="">|</span>
+            <span>|</span>
             <router-link class="px-10" to="/user/order">我的订单</router-link>
           </div>
           <div class="dropdown cart">
-            <router-link to="/cart" class="dropdown-toggle" href="javascript:;"
+            <router-link to="/cart" class="dropdown-toggle"
               ><i class="icon icon-cart"></i><span>购物车</span
-              ><span>({{ count ? count : 0 }})</span></router-link
+              ><span>({{ totalCount }})</span></router-link
             >
-            <div class="dropdown-menu">
+            <div v-if="!totalCount" class="dropdown-menu">
               <div>购物车中还没有商品，赶紧选购吧！</div>
+            </div>
+            <div v-else class="dropdown-menu">
+              <div>您的购物车中有{{ totalCount }}件商品, 请前往查看！</div>
             </div>
           </div>
         </div>
@@ -154,14 +157,17 @@
 <script>
 import { mapState } from "vuex";
 import { storage } from "./../utils";
+import { logout } from "./../api/auth";
 import { getProductList } from "./../api/product";
 
 export default {
   name: "SiteHeader",
+
   computed: {
     ...mapState({
       user: state => state.auth.user,
-      count: state => state.cart.cart.totalCount,
+      totalCount: state => state.cart.cart.totalCount,
+      // cartItems: state => state.cart.cart.items,
     }),
   },
   data() {
@@ -178,10 +184,11 @@ export default {
     };
   },
   methods: {
-    logout() {
-      storage.removeItem("auth", "token");
-      storage.removeItem("auth", "user");
-      window.location.reload();
+    logout,
+    getCart() {
+      if (storage.getItem("auth", "token")) {
+        this.$store.dispatch("cart/getCart");
+      }
     },
     async getSiteProducts() {
       const res = await getProductList({
@@ -201,7 +208,8 @@ export default {
     },
   },
 
-  created() {
+  mounted() {
+    this.getCart();
     this.getSiteProducts();
   },
 };

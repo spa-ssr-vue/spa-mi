@@ -1,6 +1,5 @@
 <template>
   <div class="user">
-    <site-header></site-header>
     <div class="user-center bg-gray-4">
       <div class="container">
         <el-container>
@@ -33,7 +32,6 @@
         </el-container>
       </div>
     </div>
-    <site-footer></site-footer>
   </div>
 </template>
 

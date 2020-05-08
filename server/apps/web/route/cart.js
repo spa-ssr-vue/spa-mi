@@ -46,14 +46,12 @@ module.exports = app => {
     }); // get cartItems in the cart
     isSelectedAll = cartItems.every(dic => dic.selected); // is selectedAll ?
     selectedCartItems = cartItems.filter(dic => dic.selected); // get selected cartItem
-    if (selectedCartItems.length === 0) {
-      totalPrice = 0;
-      totalCount = 0;
-    } else {
-      selectedCartItems.forEach(doc => (totalPrice += doc.count * doc.price)); // cal selected price
-      cartItems.forEach(doc => (totalCount += doc.count)); // cal total count(selected or unselected)
-    }
-    
+
+    selectedCartItems.forEach(
+      doc => (totalPrice += (doc.count || 0) * (doc.price || 0))
+    ); // cal selected price
+    cartItems.forEach(doc => (totalCount += doc.count || 0)); // cal total count(selected or unselected)
+
     // update
     cart.totalCount = totalCount || 0;
     cart.totalPrice = totalPrice || 0;
@@ -78,19 +76,6 @@ module.exports = app => {
       data: ret[0],
     });
   });
-
-  // router.put("/:id", async (req, res) => {
-  //   const { id } = req.params;
-  //   const cart = req.cart;
-  //   const cartItem = await CartItem.findById(id);
-  //   cartItem.selected = !cartItem.selected;
-  //   await cartItem.save(); // db操作, 一定要异步await等待操作完成
-
-  //   res.send({
-  //     code: 0,
-  //     message: "修改成功",
-  //   });
-  // });
 
   router.put("/selected/selectedAll", async (req, res) => {
     const cart = req.cart;

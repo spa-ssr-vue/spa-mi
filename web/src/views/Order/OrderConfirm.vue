@@ -130,9 +130,9 @@
 
 <script>
 import SiteMiniHeader from "./../../components/SiteMiniHeader";
+import { mapState } from "vuex";
 import { getUserAddress, putUserAddress } from "./../../api/address";
 import { createOrder } from "./../../api/order";
-import { mapState } from "vuex";
 
 export default {
   name: "OrderConfirm",
@@ -156,10 +156,7 @@ export default {
       cart: state => state.cart.cart,
     }),
     orderItems() {
-      if (this.cart.items) {
-        return this.cart.items.filter(item => item.selected);
-      }
-      return [];
+      return this.cart.items.filter(item => item.selected);
     },
     totalCount() {
       let count = 0;

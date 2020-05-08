@@ -115,16 +115,16 @@ export default {
     return {
       bannar: {},
       asideCategories: [
-        { name: "手机 电话卡", path: "javascript:;" },
-        { name: "电视 盒子", path: "javascript:;" },
-        { name: "笔记本 显示器 平板", path: "javascript:;" },
-        { name: "家电 插线板", path: "javascript:;" },
-        { name: "出行 穿戴", path: "javascript:;" },
-        { name: "智能 路由器", path: "javascript:;" },
-        { name: "电源 配件", path: "javascript:;" },
-        { name: "健康 儿童", path: "javascript:;" },
-        { name: "耳机 音箱", path: "javascript:;" },
-        { name: "生活 箱包", path: "javascript:;" },
+        { name: "手机 电话卡", path: "/" },
+        { name: "电视 盒子", path: "/" },
+        { name: "笔记本 显示器 平板", path: "/" },
+        { name: "家电 插线板", path: "/" },
+        { name: "出行 穿戴", path: "/" },
+        { name: "智能 路由器", path: "/" },
+        { name: "电源 配件", path: "/" },
+        { name: "健康 儿童", path: "/" },
+        { name: "耳机 音箱", path: "/" },
+        { name: "生活 箱包", path: "/" },
       ],
       swiperOptions: {
         loop: true,
@@ -141,7 +141,6 @@ export default {
       },
     };
   },
-  created() {},
 };
 </script>
 

@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { storage } from "./utils";
 import { mapState } from "vuex";
+import { storage } from "./utils";
 
 export default {
   name: "App",
@@ -16,15 +16,14 @@ export default {
     }),
   },
   methods: {
-    getUserData() {
+    getUser() {
       if (storage.getItem("auth", "token") && !this.user.username) {
         this.$store.dispatch("auth/getUser");
-        this.$store.dispatch("cart/getCart");
       }
     },
   },
   created() {
-    this.getUserData();
+    this.getUser();
   },
 };
 </script>

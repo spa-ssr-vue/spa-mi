@@ -57,6 +57,11 @@ export default class Main extends Vue {
             icon: "el-icon-present",
           },
           {
+            title: "banner/ad列表",
+            path: "/banners/list",
+            icon: "el-icon-present",
+          },
+          {
             title: "购物车列表",
             path: "/carts/list",
             icon: "el-icon-shopping-cart-2",

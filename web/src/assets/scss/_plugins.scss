@@ -31,10 +31,15 @@
   }
 }
 
-.el-form {
-  .el-button--primary:focus,
-  .el-button--primary:hover {
-    background: map-get($colors, primary);
-    color: map-get($colors, white);
-  }
+.el-button--primary {
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.el-button--primary:focus,
+.el-button--primary:hover {
+  background: map-get($colors, primary) !important;
+  color: map-get($colors, white) !important;
+  border: none !important;
+  border-radius: 0 !important;
 }

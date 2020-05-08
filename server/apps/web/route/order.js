@@ -75,9 +75,6 @@ module.exports = app => {
     let orders1 = JSON.parse(JSON.stringify(order1));
     let orders2 = JSON.parse(JSON.stringify(order2));
 
-    // let orders1 = Array.prototype.slice.call(order1);
-    // let orders2 = Array.prototype.slice.call(order2);
-
     orders1.forEach((item, i) => {
       item.items = orders2[i].items;
     });
@@ -120,6 +117,8 @@ module.exports = app => {
       message: "删除成功",
     });
   });
+
+  router.post("/pay", async (req, res) => {});
 
   app.use("/web/api/orders", authMiddleware, hasCartMiddleware, router);
 };

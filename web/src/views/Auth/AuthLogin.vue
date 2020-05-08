@@ -41,10 +41,6 @@
           </div>
         </div>
       </el-card>
-      <!-- <div class="card">
-        <div class="card-header">card header</div>
-        <div class="card-body">card body</div>
-      </div> -->
     </div>
   </div>
 </template>

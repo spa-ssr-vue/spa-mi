@@ -1,4 +1,4 @@
-import { getUserInfo } from "@/api/auth";
+import { getUserInfo } from "./../api/auth";
 
 export default {
   namespaced: true,

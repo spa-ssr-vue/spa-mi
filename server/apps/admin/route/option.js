@@ -101,6 +101,18 @@ module.exports = app => {
         };
         break;
 
+      case "banners":
+        option = {
+          title: "banner/ad列表",
+          column: [
+            {
+              prop: "id",
+              label: "ID",
+            },
+          ],
+        };
+        break;
+
       case "carts":
         const cartUser = (await User.find()).map(item => ({
           label: item.username,
