@@ -164,7 +164,7 @@
 
 <script>
 export default {
-  name: "NavBottom",
+  name: "SiteFooter",
 };
 </script>
 

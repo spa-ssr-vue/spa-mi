@@ -178,6 +178,47 @@ module.exports = app => {
         };
         break;
 
+      case "addresses":
+        const addrUsers = (await User.find()).map(item => ({
+          label: item.username,
+          value: item._id,
+        }));
+
+        option = {
+          title: "地址列表",
+          column: [
+            {
+              prop: "user",
+              label: "所属用户",
+              type: "select",
+              dicData: addrUsers,
+              filterable: true,
+              row: true,
+            },
+            {
+              prop: "name",
+              label: "收货人姓名",
+              filterable: true,
+              row: true,
+            },
+            {
+              prop: "phone",
+              label: "收货人电话",
+              filterable: true,
+              row: true,
+            },
+            {
+              prop: "addr",
+              label: "详细地址",
+              type: "textarea",
+              filterable: true,
+              row: true,
+            },
+          ],
+        };
+
+        break;
+
       case "comments":
         const articles = (await Article.find()).map(item => ({
           label: item.title,

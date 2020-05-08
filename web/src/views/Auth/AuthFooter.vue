@@ -13,7 +13,7 @@
     </div>
     <p class="footer-permit" :class="type === 'register' ? 'register' : ''">
       小米公司版权所有-京ICP备10046444-
-      <img src="./../../public/imgs/ghs.png" alt="" />
+      <img src="./../../../public/imgs/ghs.png" alt="" />
       <a href="javascript:;">京公网安备11010802020134号</a>-京ICP证110507号
     </p>
   </div>

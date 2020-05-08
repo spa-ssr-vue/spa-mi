@@ -7,11 +7,12 @@ const schema = new mongoose.Schema(
     name: { type: String },
     title: { type: String },
     cover: { type: String },
+    thumbImg: { type: String },
     description: { type: String },
     stock: { type: Number },
     price: { type: Number },
     memberPrice: { type: Number },
-    status: { type: Number }, // 0下架
+    status: { type: Number }, // 0下架 1上架
   },
   {
     timestamps: true,

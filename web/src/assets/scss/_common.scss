@@ -22,6 +22,46 @@ body {
   }
 }
 
+.topbar-user {
+  .nav {
+    &.nav-user {
+      width: 110px;
+      padding: 7px 0;
+      .nav-item {
+        .nav-link {
+          padding: 3px 30px;
+          line-height: 2;
+          color: map-get($colors, dark-4);
+          &:hover {
+            color: map-get($colors, primary);
+          }
+        }
+      }
+    }
+  }
+
+  .dropdown {
+    &.user {
+      position: relative;
+      width: 110px;
+      text-align: center;
+      &:hover {
+        background-color: map-get($colors, white);
+        .dropdown-toggle {
+          color: map-get($colors, primary);
+        }
+        .dropdown-menu {
+          height: 170px;
+        }
+      }
+
+      .dropdown-menu {
+        background-color: map-get($colors, white);
+      }
+    }
+  }
+}
+
 .list {
   .list-item {
     float: left;
@@ -113,13 +153,30 @@ body {
     background-color: map-get($colors, gray-1);
     cursor: pointer;
   }
+
+  &.icon-delete {
+    @include bgImg(24px, 24px, "./../../../public/imgs/icon-close.png", 12px);
+    border-radius: 50%;
+    cursor: pointer;
+    &:hover {
+      color: map-get($colors, white);
+      background-color: map-get($colors, primary);
+    }
+  }
 }
 
 .btn {
   display: inline-block;
   background-color: map-get($colors, primary);
+  cursor: pointer;
   &.btn-primary {
     color: map-get($colors, white);
+    width: 160px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid map-get($colors, gray-3);
+    text-align: center;
+    margin-left: 30px;
   }
   &.btn-register {
     width: 100%;
@@ -135,6 +192,102 @@ body {
     border: none;
     border-radius: 0;
     margin-top: 10px;
+  }
+}
+
+.logo {
+  display: inline-block;
+  margin-right: 0;
+  background-color: map-get($colors, primary);
+  overflow: hidden;
+  a {
+    display: inline-block;
+    &:before,
+    &:after {
+      content: "";
+      display: inline-block;
+      background-size: center;
+      transform: translateZ(0);
+      transition: all 0.2s;
+    }
+    &:before {
+      background: url("./../../../public/imgs/mi-logo.png") no-repeat center;
+    }
+    &:after {
+      background: url("./../../../public/imgs/mi-home.png") no-repeat center;
+    }
+    &:hover:before,
+    &:hover:after {
+      transform: translateX(-55px);
+      transition: all 0.2s;
+    }
+  }
+
+  &.logo-site {
+    width: 55px;
+    height: 55px;
+    margin-top: 22px;
+    a {
+      width: 110px;
+      height: 55px;
+      &:before,
+      &:after {
+        width: 55px;
+        height: 55px;
+      }
+      &:hover:before,
+      &:hover:after {
+        transform: translateX(-55px);
+      }
+    }
+  }
+  &.logo-site-mini {
+    width: 48px;
+    height: 48px;
+    margin: 26px 45px 0 0;
+    a {
+      width: 96px;
+      height: 48px;
+      &:before,
+      &:after {
+        width: 48px;
+        height: 48px;
+      }
+      &:hover:before,
+      &:hover:after {
+        transform: translateX(-48px);
+      }
+    }
+  }
+}
+
+.dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  display: none;
+  &.show {
+    display: block;
+  }
+  .mask {
+    background-color: #000;
+    opacity: 0.5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1000;
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -170,13 +323,7 @@ body {
   overflow: hidden;
 }
 
-.t {
-  width: 500px;
-  height: 500px;
-  margin: 0 auto;
-  span {
-    width: 100px;
-    height: 100px;
-    background: url("./../logo.png");
-  }
+.m {
+  display: table-cell;
+  vertical-align: middle;
 }

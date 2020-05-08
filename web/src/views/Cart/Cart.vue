@@ -1,91 +1,94 @@
 <template>
-  <div class="cart bg-gray-1">
-    <site-mini-header></site-mini-header>
-    <div>{{ cart._id }}</div>
-    <div>cart list</div>
-    <div class="card card-cart container bg-white fs-14 text-dark-4">
-      <div class="card-header clearfix">
-        <div class="check">
-          <span
-            class="icon icon-check mr-15"
-            :class="{ checked: cart.isSelectedAll }"
-            @click="changeSelectedAll"
-          ></span
-          >全选
-        </div>
-        <div class="img" style="height:70px"></div>
-        <div class="name">商品名称</div>
-        <div class="price">单价</div>
-        <div class="count">数量</div>
-        <div class="total">小计</div>
-        <div class="action">操作</div>
-      </div>
-      <div class="card-body product-list">
-        <div
-          v-for="(product, index) in cart.items"
-          :key="`product-${index}`"
-          class="product-item clearfix"
-        >
+  <div class="cart bg-gray-4">
+    <site-mini-header :title="info.title" :tips="info.tips"></site-mini-header>
+    <div class="card card-cart bg-gray-4 fs-14 text-dark-4">
+      <div class="container">
+        <div class="card-header clearfix bg-white">
           <div class="check">
             <span
-              class="icon icon-check"
-              :class="{ checked: product.selected }"
-              @click="changeSelected(product._id)"
-            ></span>
+              class="icon icon-check mr-15 fs-14"
+              :class="{ checked: cart.isSelectedAll }"
+              @click="changeSelectedAll"
+            ></span
+            >全选
           </div>
-          <div class="img">
-            <router-link :to="`/product/${product._id}`"
-              ><img :src="product.cover" alt="" width="80" height="80"
-            /></router-link>
-          </div>
-          <div class="name">{{ product.name }}</div>
-          <div class="price">{{ product.price }}</div>
-          <div class="count">
-            <span
-              @click="add(product._id, product.count)"
-              class="icon icon-plus"
-              >+</span
-            ><span
-              ><input
-                v-model="product.count"
-                class="c"
-                style="width:40px;height:30px;text-align: center"
-            /></span>
-            <span
-              @click="remove(product._id, product.count)"
-              class="icon icon-subtract"
-              >-</span
-            >
-          </div>
-          <div class="total">{{ product.price * product.count }}</div>
-          <div class="action">
-            <el-button type="primary" @click="removeItem(product._id)"
-              >删除</el-button
-            >
-          </div>
+          <div class="img" style="height:70px"></div>
+          <div class="name">商品名称</div>
+          <div class="price">单价</div>
+          <div class="count">数量</div>
+          <div class="total">小计</div>
+          <div class="action">操作</div>
         </div>
-      </div>
-      <div class="div"></div>
-      <div class="card-footer clearfix">
-        <div class="fl text-gray-7">
-          <router-link class="fl" to="/">继续购物</router-link>
-          <span class="fl text-gray-1 mx-14">|</span>
-          <span class="fl"
-            >共
-            <span class="text-primary">{{ cart.totalCount }}</span>
-            件商品，已选择
-            <span class="text-primary">{{ selectedCount }}</span> 件</span
+        <div class="card-body product-list bg-white">
+          <div
+            v-for="(product, index) in cart.items"
+            :key="`product-${index}`"
+            class="product-item clearfix"
           >
-        </div>
-        <div class="fr">
-          <div class="fl text-primary totalCount">
-            合计: <span>{{ cart.totalPrice }}</span
-            >元
+            <div class="check">
+              <span
+                class="icon icon-check"
+                :class="{ checked: product.selected }"
+                @click="changeSelected(product._id)"
+              ></span>
+            </div>
+            <div class="img">
+              <router-link :to="`/product/${product._id}`"
+                ><img :src="product.cover" alt=""
+              /></router-link>
+            </div>
+            <div class="name">{{ product.name }}</div>
+            <div class="price">{{ product.price }}</div>
+            <div class="count">
+              <span
+                @click="add(product._id, product.count)"
+                class="icon icon-plus"
+                >+</span
+              ><span
+                ><input
+                  v-model="product.count"
+                  class="c"
+                  style="width:40px;height:30px;text-align: center"
+              /></span>
+              <span
+                @click="remove(product._id, product.count)"
+                class="icon icon-subtract"
+                >-</span
+              >
+            </div>
+            <div class="total">{{ product.price * product.count }}</div>
+            <div class="action">
+              <span
+                @click="removeItem(product._id)"
+                class="icon icon-delete"
+              ></span>
+              <!-- <el-button type="primary" @click="removeItem(product._id)"
+                >删除</el-button
+              > -->
+            </div>
           </div>
-          <div class="fl">
-            <router-link to="/order" class="btn btn-primary"
-              >去结算</router-link
+        </div>
+        <div class="card-footer clearfix bg-white">
+          <div class="fl text-gray-7">
+            <router-link class="fl" to="/">继续购物</router-link>
+            <span class="fl text-gray-1 mx-14">|</span>
+            <span class="fl"
+              >共
+              <span class="text-primary">{{ cart.totalCount }}</span>
+              件商品，已选择
+              <span class="text-primary">{{ selectedCount }}</span> 件</span
             >
+          </div>
+          <div class="fr">
+            <div class="fl text-primary totalCount">
+              合计: <span>{{ cart.totalPrice }}</span
+              >元
+            </div>
+            <div class="fl">
+              <router-link to="/order/confirm" class="btn btn-primary"
+                >去结算</router-link
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -114,7 +117,10 @@ export default {
   },
   data() {
     return {
-      // selectedCount:
+      info: {
+        title: "我的购物车",
+        tips: "温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算",
+      },
     };
   },
   computed: {
@@ -158,6 +164,7 @@ export default {
       await this.getCartInfo();
     },
     async remove(id, count) {
+      await this.$confirm("确定要删除该商品?");
       if (count <= 1) {
         this.$message({
           type: "warning",
@@ -184,11 +191,13 @@ export default {
   .card {
     &.card-cart {
       text-align: center;
+      padding: 38px 0;
       .card-header {
         height: 70px;
         line-height: 70px;
         > div {
           float: left;
+          font-size: 14px !important;
         }
       }
 
@@ -220,6 +229,7 @@ export default {
         height: 50px;
         line-height: 50px;
         padding-left: 32px;
+        margin: 20px 0;
         .totalCount {
           font-size: 14px;
           line-height: 50px;
@@ -227,11 +237,6 @@ export default {
             font-size: 30px;
           }
         }
-      }
-
-      .div {
-        height: 20px;
-        background-color: map-get($colors, gray-1);
       }
 
       .card-header,

@@ -1,5 +1,5 @@
 <template>
-  <div>重置密码界面</div>
+  <div>reset password</div>
 </template>
 
 <script>

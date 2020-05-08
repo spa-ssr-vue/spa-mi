@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import AuthFooter from "./../../components/AuthFooter";
+import AuthFooter from "./AuthFooter";
 
 export default {
   name: "Auth",

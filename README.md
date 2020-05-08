@@ -2,4 +2,6 @@
 
 ## page
 
-首页商品列表展示 → 商品详情页/购买页 → 添加到购物车/购物车页 → 结算/订单生成结算页 → 支付页
+auth: register(user) → login(get token) → home page(verify token, get user info)
+
+site: home(product list) → product detail/buy → cart → order confirm/pay → user info

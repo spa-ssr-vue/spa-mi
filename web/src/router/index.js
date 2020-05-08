@@ -4,6 +4,13 @@ import VueRouter from "vue-router";
 import Home from "../views/Home/Home.vue";
 import HomeIndex from "../views/Home/HomeIndex.vue";
 
+import User from "../views/User/User.vue";
+import UserOrder from "../views/User/UserOrder.vue";
+import UserCenter from "../views/User/UserCenter.vue";
+import UserAddress from "../views/User/UserAddress.vue";
+import UserService from "../views/User/UserService.vue";
+import UserManager from "../views/User/UserManager.vue";
+
 import Product from "../views/Product/Product.vue";
 import ProductDetail from "../views/Product/ProductDetail.vue";
 import ProductBuy from "../views/Product/ProductBuy.vue";
@@ -36,6 +43,18 @@ const routes = [
     ],
   },
   {
+    path: "/user",
+    name: "user",
+    component: User,
+    children: [
+      { path: "/user/order", name: "user-order", component: UserOrder },
+      { path: "/user/center", name: "user-center", component: UserCenter },
+      { path: "/user/address", name: "user-address", component: UserAddress },
+      { path: "/user/service", name: "user-service", component: UserService },
+      { path: "/user/manager", name: "user-manager", component: UserManager },
+    ],
+  },
+  {
     path: "/products",
     name: "product",
     component: Product,
@@ -64,8 +83,17 @@ const routes = [
     name: "order",
     component: Order,
     children: [
-      { path: "/", name: "order-confirm", component: OrderConfirm },
-      { path: "/order/pay", name: "order-pay", component: OrderPay },
+      {
+        path: "/order/confirm",
+        name: "order-confirm",
+        component: OrderConfirm,
+      },
+      {
+        path: "/order/pay/:id",
+        name: "order-pay",
+        component: OrderPay,
+        props: true,
+      },
     ],
   },
   {

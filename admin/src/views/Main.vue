@@ -67,6 +67,11 @@ export default class Main extends Vue {
             icon: "el-icon-reading",
           },
           {
+            title: "地址列表",
+            path: "/addresses/list",
+            icon: "el-icon-reading",
+          },
+          {
             title: "评论列表",
             path: "/comments/list",
             icon: "el-icon-s-comment",

@@ -1,31 +1,6 @@
-// async function calTotalCart() {
-//   let totalCount = 0,
-//     totalPrice = 0,
-//     isSelectedAll = false,
-//     selectedCartItems = null;
-
-//   const items = await CartItem.find({ cart: cart._id });
-//   isSelectedAll = items.every(dic => dic.selected);
-//   selectedCartItems = items.filter(dic => dic.selected)
-//   selectedCartItems.forEach((doc, i) => {
-//     totalPrice += doc.count * doc.price;
-//   });
-
-//   items.forEach((doc, i) => {
-//     totalCount += doc.count;
-//   });
-
-//   const updateCart = await Cart.findById(cart._id);
-//   updateCart.totalCount = totalCount;
-//   updateCart.totalPrice = totalPrice;
-//   updateCart.isSelectedAll = isSelectedAll;
-//   updateCart.save();
-// }
-
 module.exports = app => {
   const express = require("express");
   const router = express.Router({ mergeParams: true });
-  const mongoose = require("mongoose");
 
   const Cart = require("./../../../libs/db/models/Cart");
   const CartItem = require("./../../../libs/db/models/CartItem");
@@ -71,12 +46,17 @@ module.exports = app => {
     }); // get cartItems in the cart
     isSelectedAll = cartItems.every(dic => dic.selected); // is selectedAll ?
     selectedCartItems = cartItems.filter(dic => dic.selected); // get selected cartItem
-    selectedCartItems.forEach(doc => (totalPrice += doc.count * doc.price)); // cal selected price
-    cartItems.forEach(doc => (totalCount += doc.count)); // cal total count(selected or unselected)
-
+    if (selectedCartItems.length === 0) {
+      totalPrice = 0;
+      totalCount = 0;
+    } else {
+      selectedCartItems.forEach(doc => (totalPrice += doc.count * doc.price)); // cal selected price
+      cartItems.forEach(doc => (totalCount += doc.count)); // cal total count(selected or unselected)
+    }
+    
     // update
-    cart.totalCount = totalCount;
-    cart.totalPrice = totalPrice;
+    cart.totalCount = totalCount || 0;
+    cart.totalPrice = totalPrice || 0;
     cart.isSelectedAll = isSelectedAll;
     await cart.save();
 

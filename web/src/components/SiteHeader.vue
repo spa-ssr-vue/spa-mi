@@ -90,7 +90,7 @@
     </div>
     <div class="header-nav text-dark-3 fs-16">
       <div class="container clearfix">
-        <div class="logo fl">
+        <div class="logo logo-site fl">
           <router-link to="/"></router-link>
         </div>
         <div class="search fr">
@@ -157,7 +157,7 @@ import { storage } from "./../utils";
 import { getProductList } from "./../api/product";
 
 export default {
-  name: "NavHeader",
+  name: "SiteHeader",
   computed: {
     ...mapState({
       user: state => state.auth.user,
@@ -239,41 +239,6 @@ export default {
     height: 100px;
     line-height: 100px;
     position: relative;
-    .logo {
-      display: inline-block;
-      width: 55px;
-      height: 55px;
-      margin-right: 0;
-      margin-top: 22px;
-      background-color: map-get($colors, primary);
-      overflow: hidden;
-      a {
-        display: inline-block;
-        width: 110px;
-        height: 55px;
-        &:before,
-        &:after {
-          content: "";
-          display: inline-block;
-          width: 55px;
-          height: 55px;
-          background-size: center;
-          transform: translateZ(0);
-          transition: all 0.2s;
-        }
-        &:before {
-          background: url("./../../public/imgs/mi-logo.png") no-repeat center;
-        }
-        &:after {
-          background: url("./../../public/imgs/mi-home.png") no-repeat center;
-        }
-        &:hover:before,
-        &:hover:after {
-          transform: translateX(-55px);
-          transition: all 0.2s;
-        }
-      }
-    }
 
     .search {
       width: 296px;
@@ -303,43 +268,9 @@ export default {
         padding: 0 10px;
       }
     }
-
-    &.nav-user {
-      width: 110px;
-      padding: 7px 0;
-      .nav-item {
-        .nav-link {
-          padding: 3px 30px;
-          line-height: 2;
-          color: map-get($colors, dark-4);
-          &:hover {
-            color: map-get($colors, primary);
-          }
-        }
-      }
-    }
   }
 
   .dropdown {
-    &.user {
-      position: relative;
-      width: 110px;
-      text-align: center;
-      &:hover {
-        background-color: map-get($colors, white);
-        .dropdown-toggle {
-          color: map-get($colors, primary);
-        }
-        .dropdown-menu {
-          height: 170px;
-        }
-      }
-
-      .dropdown-menu {
-        background-color: map-get($colors, white);
-      }
-    }
-
     &.cart {
       position: relative;
       display: inline-block;
