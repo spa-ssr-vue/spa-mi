@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const schema = new mongoose.Schema(
   {
     id: { type: Number },
-    category: { type: mongoose.SchemaTypes.ObjectId, ref: "Category" },
+    categories: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Category" }],
     name: { type: String },
     title: { type: String },
     cover: { type: String },

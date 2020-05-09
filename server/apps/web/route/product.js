@@ -5,32 +5,49 @@ module.exports = app => {
   });
   const Category = require("./../../../libs/db/models/Category");
   const Product = require("./../../../libs/db/models/Product");
+  const Banner = require("./../../../libs/db/models/Banner");
 
   router.get("/", async (req, res) => {
     let tag = "";
-    let productId = [];
+    let categoryId = [];
     let limit = 0;
     let items = [];
     if (req.query.query) {
       const query = JSON.parse(req.query.query);
       tag = query.tag;
-      productId = query.productId;
+      categoryId = query.categoryId;
       limit = query.limit;
     }
     switch (tag) {
-      case "site":
+      case "category":
         items = await Category.aggregate([
           {
             $match: {
-              id: { $in: productId },
+              id: { $in: categoryId },
             },
           },
           {
             $lookup: {
               from: "products",
               localField: "_id",
-              foreignField: "category",
+              foreignField: "categories",
               as: "productList",
+            },
+          },
+          {
+            $lookup: {
+              from: "banners",
+              localField: "_id",
+              foreignField: "category",
+              as: "banner",
+            },
+          },
+          {
+            $lookup: {
+              from: "banners",
+              localField: "_id",
+              foreignField: "category",
+              as: "banner",
             },
           },
           {

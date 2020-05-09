@@ -24,7 +24,25 @@
             >{{ category.name }}<span class="icon icon-nav-arrow"></span
           ></router-link>
           <div class="dropdown-menu">
-            我是第{{ index }}个aside nav hover 出来的
+            <ul class="list list-aside clearfix">
+              <li
+                v-for="(item, index) in category.items"
+                :key="`cat-item-${index}`"
+                class="list-item"
+              >
+                <router-link
+                  v-for="(subItem, i) in item"
+                  :key="`sub-item-${i}`"
+                  class="list-link"
+                  to="/"
+                >
+                  <img :src="subItem.thumbImg" alt="" /><span
+                    class="name fs-14"
+                    >{{ subItem.name }}</span
+                  >
+                </router-link>
+              </li>
+            </ul>
           </div>
         </li>
       </ul>
@@ -60,65 +78,33 @@
     </div>
     <div class="index-box bg-gray-4">
       <div
-        class="container"
-        v-for="(item, index) in boxBanner.items"
-        :key="`box-banner-${index}`"
+        v-for="(catItem, index) in promoCategories"
+        :key="`category-${index}`"
       >
-        <div class="box-banner">
-          <router-link :to="`/products/buy/${item.product}`"
-            ><img :src="item.imgUrl" alt=""
-          /></router-link>
-        </div>
-        <div class="card card-box ">
-          <div class="card-header">
-            <h2>手机</h2>
-            <div class="more">查看更多</div>
-          </div>
-          <div class="card-body list list-box clearfix">
-            <div class="list-item banner">
-              <router-link to="/"
-                ><img
-                  src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/574c6643ab91c6618bfb2d0e2c761d0b.jpg?w=468&h=1228"
-                  alt=""
-              /></router-link>
-            </div>
-            <div class="list-item promo">
-              <ul class="list list-sub clearfix">
-                <li v-for="n in 8" :key="n" class="list-item text-center">
-                  <a class="list-link" href="/"
-                    ><img
-                      src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/8729282b199b3ec51e31c1b6b15f3f93.jpg"
-                      alt=""
-                    />
-                    <h3 class="name">小米10 青春版 5G</h3>
-                    <p class="desc">50倍潜望式变焦 / 轻薄5G手机</p>
-                    <p class="price">2099元</p>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <cat-promo-box :category="catItem"></cat-promo-box>
       </div>
     </div>
   </main>
 </template>
 
 <script>
-import { getBanner } from "./../../api/banner";
 import axios from "axios";
+import { chunk } from "lodash";
+import { getBanner } from "./../../api/banner";
+import { getProductList, getProduct } from "../../api/product";
+import CatPromoBox from "./../../components/CatPromoBox";
 
 export default {
   name: "HomeIndex",
+  components: {
+    CatPromoBox,
+  },
   data() {
     return {
       swiperBanner: {
         items: [],
       },
       promoBanner: {
-        items: [],
-      },
-      boxBanner: {
         items: [],
       },
       promoChannels: [
@@ -187,20 +173,56 @@ export default {
       },
     };
   },
+
   methods: {
     async getBanner() {
-      const res = await axios.all([
-        getBanner(10001),
-        getBanner(10002),
-        getBanner(10010),
-      ]);
+      const res = await axios.all([getBanner(10001), getBanner(10002)]);
       this.swiperBanner = res[0].data;
       this.promoBanner = res[1].data;
-      this.boxBanner = res[2].data;
+    },
+
+    async getCatProducts() {
+      const res = await getProductList({
+        query: {
+          tag: "category",
+          categoryId: [440000],
+          limit: 24,
+        },
+      });
+
+      this.asideCategories = this.asideCategories.map((item, i) => {
+        return {
+          name: item.name,
+          path: item.path,
+          items: chunk(res.data[0].productList, 6),
+        };
+      });
+    },
+
+    async getBoxProducts() {
+      const res = await axios.all([
+        getBanner(10010),
+        getProductList({
+          query: {
+            tag: "category",
+            categoryId: [100000, 400000],
+            limit: 8,
+          },
+        }),
+      ]);
+
+      this.promoCategories = res[1].data.map((item, index) => ({
+        name: item.name,
+        banner: item.banner[0],
+        boxBanner: res[0].data.items[index],
+        productList: item.productList,
+      }));
     },
   },
   created() {
     this.getBanner();
+    this.getCatProducts();
+    this.getBoxProducts();
   },
 };
 </script>
@@ -313,11 +335,10 @@ export default {
       position: absolute;
       top: 0;
       left: 234px;
-      width: 500px;
       height: 460px;
       background-color: #fff;
-      color: mediumpurple;
       display: none;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.18);
     }
   }
 }
@@ -354,11 +375,13 @@ export default {
       margin-bottom: 14px;
     }
 
-    .list-item {
+    .list-item,
+    .banner-item {
       transition: all 0.4s;
     }
 
-    .banner {
+    .banner,
+    .banner-item {
       &:hover {
         transform: translateY(-5px);
       }
@@ -403,6 +426,33 @@ export default {
       }
     }
   }
+
+  &.list-aside {
+    width: 992px;
+    .list-item {
+      width: 234px;
+      height: 460px;
+      padding: 2px 0;
+      margin-left: 14px;
+      a {
+        width: 265px;
+        height: 76px;
+        line-height: 76px;
+      }
+      img {
+        width: 40px;
+        height: 40px;
+        vertical-align: middle;
+        margin-right: 12px;
+      }
+
+      .name {
+        display: inline-block;
+        line-height: 40px;
+        color: map-get($colors, dark-3);
+      }
+    }
+  }
 }
 
 .card {
@@ -425,13 +475,20 @@ export default {
       }
     }
     .card-body {
-      .banner {
+      .banner,
+      .banner-wrap {
         a {
           display: block;
           img {
             width: 100%;
           }
         }
+      }
+
+      .banner-item {
+        height: 300px;
+        margin: 0 0 14px 14px;
+        overflow: hidden;
       }
     }
   }

@@ -71,9 +71,10 @@ module.exports = app => {
             },
             { prop: "id", label: "ID", type: "number", span: 12 },
             {
-              prop: "category",
+              prop: "categories",
               label: "产品分类",
               type: "select",
+              multiple:true,
               dicData: categories,
               span: 12,
             },

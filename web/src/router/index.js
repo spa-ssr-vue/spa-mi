@@ -25,6 +25,8 @@ import AuthLogin from "../views/Auth/AuthLogin.vue";
 import AuthRegister from "../views/Auth/AuthRegister.vue";
 import AuthReset from "../views/Auth/AuthReset.vue";
 
+import Search from "../views/Search/Search.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -124,6 +126,12 @@ const routes = [
         component: AuthReset,
       },
     ],
+  },
+  // search
+  {
+    path: "/search",
+    name: "search",
+    component: Search,
   },
 ];
 

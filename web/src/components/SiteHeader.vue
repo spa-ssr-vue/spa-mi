@@ -76,7 +76,7 @@
             <span>|</span>
             <router-link class="px-10" to="/user/order">我的订单</router-link>
           </div>
-          <div class="dropdown cart">
+          <div class="dropdown dropdown-cart">
             <router-link to="/cart" class="dropdown-toggle"
               ><i class="icon icon-cart"></i><span>购物车</span
               ><span>({{ totalCount }})</span></router-link
@@ -97,15 +97,16 @@
           <router-link to="/"></router-link>
         </div>
         <div class="search fr">
-          <form action="/">
-            <input type="text" /><span class="icon icon-search"></span>
-          </form>
+          <input v-model="kw" type="text" /><span
+            @click.passive="search"
+            class="icon icon-search"
+          ></span>
         </div>
         <ul class="nav nav-site fr">
           <li
             v-for="(category, index) in siteCategories"
             :key="`category-${index}`"
-            class="nav-item dropdown site"
+            class="nav-item dropdown dropdown-site"
           >
             <router-link :to="category.path" class="nav-link dropdown-toggle">{{
               category.name
@@ -167,7 +168,6 @@ export default {
     ...mapState({
       user: state => state.auth.user,
       totalCount: state => state.cart.cart.totalCount,
-      // cartItems: state => state.cart.cart.items,
     }),
   },
   data() {
@@ -181,10 +181,17 @@ export default {
         { name: "路由器", path: "/" },
         { name: "智能硬件", path: "/" },
       ],
+      kw: "",
     };
   },
   methods: {
     logout,
+    search() {
+      this.$router.push({
+        path: "/search",
+        query: { kw: this.kw },
+      });
+    },
     getCart() {
       if (storage.getItem("auth", "token")) {
         this.$store.dispatch("cart/getCart");
@@ -193,8 +200,8 @@ export default {
     async getSiteProducts() {
       const res = await getProductList({
         query: {
-          tag: "site",
-          productId: [110000, 120000, 440000, 300000, 400000, 500000, 600000],
+          tag: "category",
+          categoryId: [110000, 120000, 440000, 300000, 400000, 500000, 600000],
           limit: 6,
         },
       });
@@ -208,7 +215,7 @@ export default {
     },
   },
 
-  mounted() {
+  created() {
     this.getCart();
     this.getSiteProducts();
   },
@@ -253,106 +260,107 @@ export default {
       input {
         width: 245px;
         height: 50px;
+        padding-left: 10px;
         outline: none;
       }
     }
   }
+}
 
-  .nav {
-    &.nav-top {
-      .nav-link {
-        display: inline-block;
-        &:hover {
-          color: map-get($colors, white);
-        }
-      }
-    }
-
-    &.nav-site {
-      width: 650px;
-      margin-right: 40px;
-      .nav-item {
-        float: left;
-        padding: 0 10px;
+.nav {
+  &.nav-top {
+    .nav-link {
+      display: inline-block;
+      &:hover {
+        color: map-get($colors, white);
       }
     }
   }
 
-  .dropdown {
-    &.cart {
-      position: relative;
-      display: inline-block;
-      width: 120px;
-      height: 40px;
-      line-height: 40px;
-      margin-left: 15px;
-      text-align: center;
-      &:hover {
-        .dropdown-toggle {
-          background-color: map-get($colors, white);
-          span {
-            color: map-get($colors, primary);
-          }
-        }
-        .dropdown-menu {
-          height: 100px;
-        }
+  &.nav-site {
+    width: 650px;
+    margin-right: 40px;
+    .nav-item {
+      float: left;
+      padding: 0 10px;
+    }
+  }
+}
 
-        .icon.icon-cart {
-          background: url("./../../public/imgs/icon-cart-hover.png") no-repeat
-            center;
-          background-size: contain;
-        }
-      }
-
+.dropdown {
+  &.dropdown-cart {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 15px;
+    text-align: center;
+    &:hover {
       .dropdown-toggle {
-        background-color: map-get($colors, dark-4);
+        background-color: map-get($colors, white);
         span {
-          color: map-get($colors, gray-3);
-          margin-right: 6px;
+          color: map-get($colors, primary);
         }
       }
-
       .dropdown-menu {
-        height: 0px;
-        right: 0;
-        top: 39px;
-        width: 316px;
-        line-height: 100px;
-        text-align: center;
-        background-color: map-get($colors, white);
-        color: map-get($colors, primary);
+        height: 100px;
+      }
+
+      .icon.icon-cart {
+        background: url("./../../public/imgs/icon-cart-hover.png") no-repeat
+          center;
+        background-size: contain;
       }
     }
 
-    &.site {
-      &:hover {
-        .dropdown-menu {
-          height: 230px;
-        }
+    .dropdown-toggle {
+      background-color: map-get($colors, dark-4);
+      span {
+        color: map-get($colors, gray-3);
+        margin-right: 6px;
       }
+    }
+
+    .dropdown-menu {
+      height: 0px;
+      right: 0;
+      top: 39px;
+      width: 316px;
+      line-height: 100px;
+      text-align: center;
+      background-color: map-get($colors, white);
+      color: map-get($colors, primary);
+    }
+  }
+
+  &.dropdown-site {
+    &:hover {
       .dropdown-menu {
-        width: 100%;
-        left: 0;
-        top: 100px;
-        text-align: center;
-        background-color: map-get($colors, white);
-        color: map-get($colors, primary);
-        .wrap {
-          border-top: 1px solid map-get($colors, gray-1);
+        height: 230px;
+      }
+    }
+    .dropdown-menu {
+      width: 100%;
+      left: 0;
+      top: 100px;
+      text-align: center;
+      background-color: map-get($colors, white);
+      color: map-get($colors, primary);
+      .wrap {
+        border-top: 1px solid map-get($colors, gray-1);
+      }
+      ul {
+        padding: 40px 0 0 0;
+      }
+      li {
+        width: 16.666%;
+        @include sde(1px, 100px, map-get($colors, gray-1), 0, 0);
+        &:last-child:after {
+          width: 0;
         }
-        ul {
-          padding: 40px 0 0 0;
-        }
-        li {
-          width: 16.666%;
-          @include sde(1px, 100px, map-get($colors, gray-1), 0, 0);
-          &:last-child:after {
-            width: 0;
-          }
-          a {
-            display: block;
-          }
+        a {
+          display: block;
         }
       }
     }

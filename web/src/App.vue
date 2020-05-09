@@ -25,5 +25,11 @@ export default {
   created() {
     this.getUser();
   },
+  mounted() {
+    document.documentElement.scrollTo({
+      top: 140,
+      behavior: "smooth",
+    });
+  },
 };
 </script>
