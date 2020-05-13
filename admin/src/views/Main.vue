@@ -49,18 +49,61 @@ export default class Main extends Vue {
           {
             title: "分类列表",
             path: "/categories/list",
-            icon: "el-icon-data-line",
+            icon: "el-icon-data-board",
           },
           {
-            title: "产品列表",
-            path: "/products/list",
-            icon: "el-icon-present",
+            title: "品牌列表",
+            path: "/brands/list",
+            icon: "el-icon-place",
           },
           {
-            title: "banner/ad列表",
+            title: "属性key列表",
+            path: "/attrs/list",
+            icon: "el-icon-male",
+          },
+          {
+            title: "属性val列表",
+            path: "/attr_values/list",
+            icon: "el-icon-female",
+          },
+          {
+            title: "广告列表",
             path: "/banners/list",
             icon: "el-icon-present",
           },
+        ],
+      },
+      {
+        title: "产品管理",
+        icon: "el-icon-s-goods",
+        items: [
+          {
+            title: "产品列表",
+            path: "/products/list",
+            icon: "el-icon-goods",
+          },
+          {
+            title: "规格列表",
+            path: "/product_specs/list",
+            icon: "el-icon-coin",
+          },
+          // {
+          //   title: "评论列表",
+          //   path: "/comments/list",
+          //   icon: "el-icon-s-comment",
+          // },
+          // {
+          //   title: "回复列表",
+          //   path: "/replies/list",
+          //   icon: "el-icon-s-promotion",
+          // },
+          // { title: "操作列表", path: "/actions/list", icon: "el-icon-aim" },
+        ],
+      },
+      {
+        title: "订单管理",
+        icon: "el-icon-s-order",
+        items: [
           {
             title: "购物车列表",
             path: "/carts/list",
@@ -69,29 +112,18 @@ export default class Main extends Vue {
           {
             title: "订单列表",
             path: "/orders/list",
-            icon: "el-icon-reading",
+            icon: "el-icon-tickets",
           },
           {
             title: "地址列表",
             path: "/addresses/list",
-            icon: "el-icon-reading",
+            icon: "el-icon-notebook-1",
           },
-          {
-            title: "评论列表",
-            path: "/comments/list",
-            icon: "el-icon-s-comment",
-          },
-          {
-            title: "回复列表",
-            path: "/replies/list",
-            icon: "el-icon-s-promotion",
-          },
-          { title: "操作列表", path: "/actions/list", icon: "el-icon-aim" },
         ],
       },
       {
         title: "系统管理",
-        icon: "el-icon-setting",
+        icon: "el-icon-s-tools",
         items: [
           { title: "用户列表", path: "/users/list", icon: "el-icon-user" },
         ],

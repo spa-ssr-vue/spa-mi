@@ -88,7 +88,7 @@ export default {
         token,
         user,
       });
-      this.$router.push("/");
+      this.$router.go(-1); // 登录成功后返回之前页面
     },
   },
 };

@@ -1,16 +1,13 @@
 module.exports = app => {
   const Category = require("./../../../libs/db/models/Category");
+  const Product = require("./../../../libs/db/models/Product");
   const User = require("./../../../libs/db/models/User");
-  const Comment = require("./../../../libs/db/models/Comment");
-  const Reply = require("./../../../libs/db/models/Reply");
+  const Attr = require("./../../../libs/db/models/Attr");
+  const AttrValue = require("./../../../libs/db/models/AttrValue");
 
   app.use("/admin/api/options/:resource", async (req, res, next) => {
-    const { resource = "users" } = req.params;
+    const { resource } = req.params;
     let option = null;
-    let categories = (await Category.find()).map(item => ({
-      label: item.name,
-      value: item._id,
-    }));
 
     switch (resource) {
       case "users":
@@ -20,78 +17,105 @@ module.exports = app => {
             {
               label: "头像",
               prop: "avatar",
-              row: true,
               type: "upload",
               listType: "picture-img",
               action: "/upload",
+              row: true,
             },
-            { label: "用户名", prop: "username", row: true },
-            { label: "密码", prop: "password", type: "password", span: 12 },
+            { label: "用户名", prop: "username", span: 12 },
             {
-              label: "确认密码",
-              prop: "password2",
+              label: "密码",
+              prop: "password",
               type: "password",
+              hide: true,
               span: 12,
             },
             { label: "联系电话", prop: "phone", span: 12 },
-            { label: "联系地址", prop: "address", span: 12 },
+            { label: "电子邮箱", prop: "email", span: 12 },
           ],
         };
         break;
 
       case "categories":
+        const cats = (await Category.find()).map(item => ({
+          label: item.name,
+          value: item._id,
+        }));
+
         option = {
           title: "分类列表",
           column: [
             {
-              prop: "parentCategory",
               label: "上级分类",
+              prop: "pid",
               type: "select",
-              dicData: categories,
+              dicData: cats,
               row: true,
             },
-            { prop: "id", label: "ID", row: true, type: "number" },
-            { prop: "name", label: "分类名称", row: true },
-            { prop: "description", label: "分类描述", row: true },
+            { label: "分类编码", prop: "code", row: true, type: "number" },
+            { label: "分类名称", prop: "name", row: true },
+            { label: "分类描述", prop: "desc", row: true },
           ],
         };
         break;
 
+      case "brands":
+        option = {
+          title: "品牌列表",
+          column: [
+            {
+              label: "品牌编码",
+              prop: "code",
+            },
+            {
+              label: "品牌名称",
+              prop: "name",
+            },
+          ],
+        };
+
+        break;
+
       case "products":
+        const productCats = (await Category.find()).map(item => ({
+          label: item.name,
+          value: item._id,
+        }));
+
         option = {
           title: "产品列表",
           column: [
             {
-              prop: "cover",
               label: "产品封面",
+              prop: "coverImg",
               type: "upload",
               listType: "picture-img",
               action: "/uploads",
               row: true,
             },
-            { prop: "id", label: "ID", type: "number", span: 12 },
+            { label: "产品编码", prop: "id", type: "number", span: 12 },
             {
-              prop: "categories",
               label: "产品分类",
+              prop: "categories",
               type: "select",
-              multiple:true,
-              dicData: categories,
+              multiple: true,
+              dicData: productCats,
               span: 12,
             },
 
-            { prop: "name", label: "产品名称", span: 12 },
-            { prop: "title", label: "产品标题", span: 12 },
-            { prop: "stock", label: "产品库存", type: "number", span: 12 },
+            { label: "产品名称", prop: "name", span: 12 },
+            { label: "产品标题", prop: "title", span: 12 },
+            { label: "产品库存", prop: "stock", type: "number", span: 12 },
             {
-              prop: "price",
               label: "产品价格",
+              prop: "price",
               type: "number",
               span: 12,
               precision: 2,
             },
             {
-              prop: "status",
               label: "产品状态",
+              prop: "status",
               type: "select",
               dicData: [
                 { label: "上架", value: 1 },
@@ -102,13 +126,146 @@ module.exports = app => {
         };
         break;
 
-      case "banners":
+      case "product_specs":
+        const specProducts = (await Product.find()).map(item => ({
+          label: item.name,
+          value: item._id,
+        }));
+
+        const specAttrValues = (await AttrValue.find()).map(item => ({
+          label: item.name,
+          value: item._id,
+        }));
+
         option = {
-          title: "banner/ad列表",
+          title: "规格列表",
           column: [
             {
-              prop: "id",
-              label: "ID",
+              label: "编码",
+              prop: "code",
+              row: true,
+            },
+            {
+              label: "所属产品",
+              prop: "product",
+              type: "select",
+              dicData: specProducts,
+              row: true,
+            },
+            {
+              label: "规格项",
+              prop: "specs",
+              type: "select",
+              multiple: true,
+              dicData: specAttrValues,
+              row: true,
+            },
+            {
+              label: "价格",
+              prop: "price",
+              type: "number",
+              row: true,
+            },
+            {
+              label: "库存",
+              prop: "stock",
+              type: "number",
+              row: true,
+            },
+          ],
+        };
+        break;
+
+      case "attrs":
+        const attrCats = (await Category.find()).map(item => ({
+          label: item.name,
+          value: item._id,
+        }));
+
+        option = {
+          title: "属性key列表",
+          column: [
+            {
+              label: "属性key分类",
+              prop: "categories",
+              type: "select",
+              dicData: attrCats,
+              row: true,
+            },
+            {
+              label: "属性key编码",
+              prop: "code",
+              row: true,
+            },
+            {
+              label: "属性key名称",
+              prop: "name",
+              row: true,
+            },
+          ],
+        };
+
+        break;
+
+      case "attr_values":
+        const attrs = (await Attr.find()).map(item => ({
+          label: item.name,
+          value: item._id,
+        }));
+
+        option = {
+          title: "属性value列表",
+          column: [
+            {
+              label: "所属属性key",
+              prop: "attr",
+              type: "select",
+              dicData: attrs,
+              row: true,
+            },
+            {
+              label: "属性value编码",
+              prop: "code",
+              row: true,
+            },
+            {
+              label: "属性value名称",
+              prop: "name",
+              row: true,
+            },
+          ],
+        };
+
+        break;
+
+      case "banners":
+        const bannerCats = (await Category.find()).map(item => ({
+          label: item.name,
+          value: item._id,
+        }));
+        const bannerProducts = (await Product.find()).map(item => ({
+          label: item.name,
+          value: item._id,
+        }));
+
+        option = {
+          title: "广告列表",
+          column: [
+            {
+              label: "编码",
+              prop: "code",
+            },
+            {
+              label: "所属分类",
+              prop: "category",
+              type: "select",
+              dicData: bannerCats,
+            },
+            {
+              label: "所属产品",
+              prop: "product",
+              type: "select",
+              dicData: bannerProducts,
             },
           ],
         };

@@ -14,7 +14,7 @@ const schema = new mongoose.Schema(
     role: { type: Number },
     avatar: { type: String },
     phone: { type: String },
-    address: { type: String },
+    email: { type: String },
   },
   {
     timestamps: true,

@@ -3,8 +3,10 @@ const mongoose = require("mongoose");
 const schema = new mongoose.Schema(
   {
     category: { type: mongoose.SchemaTypes.ObjectId, ref: "Category" },
+    product: { type: mongoose.SchemaTypes.ObjectId, ref: "Product" },
+    color: { type: String },
     tag: { type: String },
-    id: { type: Number },
+    code: { type: Number },
     items: [
       {
         imgUrl: { type: String },

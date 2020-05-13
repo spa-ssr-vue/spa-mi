@@ -1,7 +1,7 @@
 module.exports = app => {
   const Category = require("./../../../libs/db/models/Category");
   const Product = require("./../../../libs/db/models/Product");
-  // const Article = require("./../../../libs/db/models/Article");
+  const Banner = require("./../../../libs/db/models/Banner");
   // const User = require("./../../../libs/db/models/User");
 
   app.use("/web/api/init/:flag", async (req, res, next) => {
@@ -144,6 +144,46 @@ module.exports = app => {
 
         res.send(await Product.find());
         // res.send(items);
+        break;
+
+      case "banner":
+        const i = "5eb381e269528a37b099f948";
+        const p = await Product.findById(i);
+
+        const items1 = [
+          {
+            imgUrl:
+              "https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1567422854.51919656.jpg",
+          },
+          {
+            imgUrl:
+              "https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1567422856.4297012.jpg",
+          },
+          {
+            imgUrl:
+              "https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1567422857.99914258.jpg",
+          },
+          {
+            imgUrl:
+              "https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1567422859.50816967.jpg",
+          },
+          {
+            imgUrl:
+              "https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1567422861.32732818.jpg",
+          },
+        ].map(item => {
+          item.product = p._id;
+          return item;
+        });
+
+        const obj = {
+          product: p._id,
+          items: items1,
+        };
+
+        const data = await Banner.create(obj);
+
+        res.send(data);
         break;
 
       default:

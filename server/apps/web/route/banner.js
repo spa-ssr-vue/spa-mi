@@ -7,9 +7,11 @@ module.exports = app => {
   const Product = require("../../../libs/db/models/Product");
   const Banner = require("../../../libs/db/models/Banner");
 
-  router.get("/:id", async (req, res) => {
-    const { id = 0 } = req.params;
-    const banner = await Banner.findOne({ id: Number(id) }).populate("product");
+  router.get("/:code", async (req, res) => {
+    const { code = 0 } = req.params;
+    const banner = await Banner.findOne({ code: Number(code) }).populate(
+      "product"
+    );
     res.send({
       code: 0,
       message: "请求成功",

@@ -28,6 +28,36 @@
       // color: #ddd;
     }
   }
+
+  &.swiper-product {
+    width: 560px;
+    height: 560px;
+    img {
+      width: 100%;
+    }
+    // 分页器
+    .swiper-pagination {
+      font-size: 18px;
+      .swiper-pagination-bullet {
+        width: 60px;
+        height: 2px;
+        background-color: #cccccc;
+        margin: 0 5px;
+        border-radius: 0;
+        // opacity: 1;
+        &.swiper-pagination-bullet-active {
+          background-color: rgba(0, 0, 0, 0.4);
+        }
+      }
+    }
+    // 按钮
+    .swiper-button-prev {
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      color: #cccccc;
+    }
+  }
 }
 
 .el-button--primary {

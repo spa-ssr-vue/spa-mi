@@ -43,7 +43,7 @@
                 class="list-item text-center"
               >
                 <a class="list-link" href="/"
-                  ><img :src="product.cover" alt="" />
+                  ><img :src="product.coverImg" alt="" />
                   <div class="info">
                     <h3 class="name">{{ product.name }}</h3>
                     <p class="desc">50倍潜望式变焦 / 轻薄5G手机</p>

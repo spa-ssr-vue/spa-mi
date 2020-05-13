@@ -185,7 +185,7 @@ export default {
       const res = await getProductList({
         query: {
           tag: "category",
-          categoryId: [440000],
+          code: [440000],
           limit: 24,
         },
       });
@@ -205,7 +205,7 @@ export default {
         getProductList({
           query: {
             tag: "category",
-            categoryId: [100000, 400000],
+            code: [100000, 400000],
             limit: 8,
           },
         }),

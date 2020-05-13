@@ -3,19 +3,20 @@ module.exports = app => {
   const router = express.Router({
     mergeParams: true,
   });
+  const mongoose = require("mongoose");
   const Category = require("./../../../libs/db/models/Category");
   const Product = require("./../../../libs/db/models/Product");
   const Banner = require("./../../../libs/db/models/Banner");
 
   router.get("/", async (req, res) => {
     let tag = "";
-    let categoryId = [];
+    let code = [];
     let limit = 0;
     let items = [];
     if (req.query.query) {
       const query = JSON.parse(req.query.query);
       tag = query.tag;
-      categoryId = query.categoryId;
+      code = query.code;
       limit = query.limit;
     }
     switch (tag) {
@@ -23,7 +24,7 @@ module.exports = app => {
         items = await Category.aggregate([
           {
             $match: {
-              id: { $in: categoryId },
+              code: { $in: code },
             },
           },
           {
@@ -72,10 +73,13 @@ module.exports = app => {
   router.get("/:id", async (req, res) => {
     const { id } = req.params;
     const product = await Product.findById(id);
+
+    const banner = await Banner.findOne({ product: id });
+
     res.send({
       code: 0,
       message: "请求成功",
-      data: product,
+      data: { product, banner },
     });
   });
 

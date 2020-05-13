@@ -125,7 +125,7 @@
                     >
                       <div class="cover">
                         <img
-                          :src="product.cover"
+                          :src="product.coverImg"
                           :alt="product.name"
                           width="160"
                           height="110"
@@ -201,7 +201,7 @@ export default {
       const res = await getProductList({
         query: {
           tag: "category",
-          categoryId: [110000, 120000, 440000, 300000, 400000, 500000, 600000],
+          code: [110000, 120000, 440000, 300000, 400000, 500000, 600000],
           limit: 6,
         },
       });

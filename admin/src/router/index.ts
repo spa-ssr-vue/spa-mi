@@ -11,8 +11,9 @@ const routes: RouteConfig[] = [
   {
     path: "/",
     component: Main,
+    redirect: "/index",
     children: [
-      { path: "/", name: "home", component: Home },
+      { path: "/index", name: "home", component: Home },
       {
         path: "/:resource/list",
         name: "resource-list",

@@ -42,10 +42,17 @@ export default class ResourceList extends Vue {
   option = {};
 
   openDialog(done, type) {
-    this.resource === "channels" && (this.formData = { parentChannel: null });
-    this.resource === "replies" && (this.formData = { toUser: null });
+    if (this.resource === "product_specs") {
+      setTimeout(() => {
+        this.formData.specs === ""
+          ? (this.formData.specs = [{}])
+          : this.formData.specs;
+      });
+    }
     done();
   }
+
+  addItem() {}
 
   async load(page) {
     this.query.page = page.currentPage;

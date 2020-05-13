@@ -1,8 +1,9 @@
 module.exports = app => {
   const express = require("express");
   const router = express.Router({ mergeParams: true });
-  const resourceMiddleware = require("./../middleware/resource")(app);
-  const crudService = require("./../service/crud");
+  const resourceMiddleware = require("./../../../libs/middleware/resource")(
+    app
+  );
 
   const Category = require("./../../../libs/db/models/Category");
 

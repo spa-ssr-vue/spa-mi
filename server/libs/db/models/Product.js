@@ -1,18 +1,22 @@
 const mongoose = require("mongoose");
-
+// SPU
 const schema = new mongoose.Schema(
   {
-    id: { type: Number },
+    code: { type: Number },
     categories: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Category" }],
+    brand: { type: mongoose.SchemaTypes.ObjectId, ref: "Brand" },
     name: { type: String },
     title: { type: String },
-    cover: { type: String },
+    subTitle: { type: String },
+    coverImg: { type: String },
     thumbImg: { type: String },
-    description: { type: String },
+    desc: { type: String },
+    status: { type: Number }, // 0下架 1上架
+
+    
     stock: { type: Number },
     price: { type: Number },
     memberPrice: { type: Number },
-    status: { type: Number }, // 0下架 1上架
   },
   {
     timestamps: true,

@@ -2,13 +2,10 @@ const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema(
   {
-    pid: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "Category",
-      default: null,
-    },
     code: { type: Number },
     name: { type: String },
+    logoImg: { type: String },
+    letter: { type: String },
     desc: { type: String },
   },
   {
@@ -16,4 +13,4 @@ const schema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Category", schema, "categories");
+module.exports = mongoose.model("Brand", schema, "brands");

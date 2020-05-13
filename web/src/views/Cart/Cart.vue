@@ -62,9 +62,6 @@
                 @click="removeItem(product._id)"
                 class="icon icon-delete"
               ></span>
-              <!-- <el-button type="primary" @click="removeItem(product._id)"
-                >删除</el-button
-              > -->
             </div>
           </div>
         </div>

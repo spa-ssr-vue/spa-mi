@@ -5,5 +5,5 @@ module.exports = app => {
   require("./order")(app);
   require("./address")(app);
   require("./banner")(app);
-  require("./init")(app);
+  // require("./init")(app);
 };
